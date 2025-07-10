@@ -3,7 +3,7 @@
     <!-- 用户信息头部 -->
     <div class="user-header">
       <div class="avatar">
-        <img src="../../assets/img/mylogo-asia.png" alt="" />
+        <img src="../../assets/img/mylogo.png" alt="" />
       </div>
 
       <div class="user-info">
