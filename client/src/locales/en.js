@@ -162,5 +162,5 @@ export default {
     "请输入或选择银行": "Please enter or select the bank",
     "确定": "Confirm",
     "请填写所有字段": "Please fill in all fields",
-    "地址为填写,请填写完整": "Address is not filled in, please fill in completely"
+    "地址未填写,请填写完整": "Address is not filled in, please fill in completely"
 };
