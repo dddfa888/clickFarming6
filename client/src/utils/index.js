@@ -11,10 +11,10 @@ let isTokenExpired = false;
 // const router = useRouter();
 const baseURL = "http://192.168.1.149:8089/"
 const request = axios.create({
-    // baseURL: import.meta.env.MODE === 'development'
-    //     ? '/api'
-    //     : 'https://cfapi.ceshias.cc/',
-    baseURL: baseURL,
+    baseURL: import.meta.env.MODE === 'development'
+        ? '/api'
+        : 'https://cfapi.ssvipmall.org/',
+    // baseURL: baseURL,
     timeout: 10000
 })
 

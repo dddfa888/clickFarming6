@@ -3,7 +3,7 @@
     <div class="order-header">
       <div>
         <p style="font-size: 15px">{{ t("订单详细信息") }}</p>
-        <div class="data-provider">{{ t("数据提供者 Mercado Asia") }}</div>
+        <div class="data-provider">{{ t("数据提供者 INGKA CENTRES") }}</div>
       </div>
       <div class="amount-section">
         <div class="amount-display">
