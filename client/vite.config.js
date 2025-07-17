@@ -20,7 +20,9 @@ export default defineConfig({
     }
   },
   server: {
-    host: '127.0.0.1',
+    //host: '127.0.0.1',
+    host: '192.168.1.149',
+    //host: 'https://cfh5.ssvipmall.org',
     port: 8080,
     open: true,
     proxy: {
