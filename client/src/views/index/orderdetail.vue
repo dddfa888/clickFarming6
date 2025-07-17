@@ -3,7 +3,7 @@
     <div class="order-header">
       <div>
         <p style="font-size: 15px">{{ t("订单详细信息") }}</p>
-        <div class="data-provider">{{ t("数据提供者 INGKA CENTRES") }}</div>
+        <div class="data-provider">{{ t("数据提供者 Ingka Centres") }}</div>
       </div>
       <div class="amount-section">
         <div class="amount-display">
@@ -48,16 +48,16 @@
       <div class="rules-content" v-if="locale === 'vi'">
         <!-- 这里可以添加基金会规则的具体内容 -->
         <p>
-          Khi bạn trở thành thành viên Mercado Asia, bạn sẽ nhận được các mã sản
-          phẩm có liên quan về đơn đặt hàng , bao gồm thông tin sản phẩm chi
+          Khi bạn trở thành thành viên Ingka Centres, bạn sẽ nhận được các mã
+          sản phẩm có liên quan về đơn đặt hàng , bao gồm thông tin sản phẩm chi
           tiết đơn hàng , giá trị sản phẩm , số lượng ...vv..
         </p>
         <p>
-          Thành viên của Mercado Asia sẽ là nhà trung gian giúp xác nhận đơn
+          Thành viên của Ingka Centres sẽ là nhà trung gian giúp xác nhận đơn
           hàng giữa các NHÀ SẢN XUẤT & QUÝ ĐỐI TÁC ( người đặt mua ).
         </p>
         <p>
-          Thành viên của Mercado Asia sẽ là nhà trung gian giúp xác nhận đơn
+          Thành viên của Ingka Centres sẽ là nhà trung gian giúp xác nhận đơn
           hàng giữa các NHÀ SẢN XUẤT & QUÝ ĐỐI TÁC ( người đặt mua ).
         </p>
       </div>
@@ -100,7 +100,6 @@ const formatCurrency = (value) => {
 const Sendbutton = () => {
   if (!order.value.withdrawalAddress) {
     notify({
-      title: t("通知"),
       message: t("地址未填写,请填写完整"),
       type: "warning",
       duration: 2000,
@@ -115,7 +114,6 @@ const Sendbutton = () => {
       id.value = res.orderId;
     } else {
       notify({
-        title: t("通知"),
         message: t(res.msg),
         type: "error",
         duration: 2000,
@@ -130,7 +128,6 @@ const handlePay = () => {
     console.log(res);
     if (res.code === 200) {
       notify({
-        title: t("通知"),
         message: t(res.msg),
         type: "success",
         duration: 2000,
@@ -141,7 +138,6 @@ const handlePay = () => {
       });
     } else {
       notify({
-        title: t("通知"),
         message: t(res.msg),
         type: "error",
         duration: 2000,

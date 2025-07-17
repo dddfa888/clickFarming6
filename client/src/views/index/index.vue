@@ -64,9 +64,10 @@
       controls
       muted
       loop
+      poster="../../assets/videos/image.png"
       width="100%"
       height="200px"
-      src="../../assets/videos/mcd-DJnKgbK7.mp4"
+      src="../../assets/videos/INGKA .mp4"
     ></video>
 
     <h5>{{ t("概述 Ingka Centres") }}</h5>
@@ -139,7 +140,11 @@ import company from "../../assets/img/company.png";
 import rule from "../../assets/img/rule.png";
 import cooperation from "../../assets/img/cooperation.png";
 import notice from "../../assets/img/notice.png";
-import { getUserInfo, getMemberRecord, getUserNotifyNum } from "../../api/index.js";
+import {
+  getUserInfo,
+  getMemberRecord,
+  getUserNotifyNum,
+} from "../../api/index.js";
 import { useI18n } from "vue-i18n";
 
 const promoRef = ref();
@@ -259,7 +264,8 @@ const handleButtonClick = (icon) => {
 
 const onDeposit = () => {
   //console.log("执行提款操作");
-  window.location.href='https://chat.ichatlink.net/widget/standalone.html?eid=f653fb3a48bd5da3b540819202afbd16&language=vi';
+  window.location.href =
+    "https://chat.ichatlink.net/widget/standalone.html?eid=f653fb3a48bd5da3b540819202afbd16&language=vi";
 };
 
 const onWithdraw = () => {
@@ -348,16 +354,16 @@ onMounted(async () => {
   cursor: pointer;
 }
 .notifyNum {
-    position: relative;
-    top: -20px;
-    left: -12px;
-    display: inline-block;
-    background-color: rgb(244, 67, 54);
-    height: 20px;
-    text-align: center;
-    border-radius: 10px;
-    line-height: 21px;
-    padding: 0px 5px;
+  position: relative;
+  top: -20px;
+  left: -12px;
+  display: inline-block;
+  background-color: rgb(244, 67, 54);
+  height: 20px;
+  text-align: center;
+  border-radius: 10px;
+  line-height: 21px;
+  padding: 0px 5px;
 }
 
 .balance-price {
@@ -614,7 +620,7 @@ onMounted(async () => {
     height: 25px;
     cursor: pointer;
   }
-  .notifyNum{
+  .notifyNum {
     position: relative;
     top: -20px;
     left: -12px;

@@ -42,35 +42,35 @@
         <div class="form-group phone-group">
           <i class="iconfont icon-phone input-icon"></i>
           <select v-model="form.areaCode" class="area-select">
-            <option value="+86">+84</option>
-            <option value="+84">+65</option>
-            <option value="+1">+66</option>
-            <option value="+81">+62</option>
-            <option value="+33">+60</option>
-            <option value="+33">+63</option>
-            <option value="+33">+27</option>
-            <option value="+33">+20</option>
-            <option value="+33">+234</option>
-            <option value="+33">+1</option>
-            <option value="+33">+44</option>
-            <option value="+33">+61</option>
-            <option value="+33">+82</option>
-            <option value="+33">+55</option>
-            <option value="+33">+52</option>
-            <option value="+33">+7</option>
-            <option value="+33">+39</option>
-            <option value="+33">+34</option>
-            <option value="+33">+86</option>
-            <option value="+33">+91</option>
-            <option value="+33">+49</option>
+            <option value="+84">+84</option>
+            <option value="+65">+65</option>
+            <option value="+66">+66</option>
+            <option value="+62">+62</option>
+            <option value="+60">+60</option>
+            <option value="+63">+63</option>
+            <option value="+27">+27</option>
+            <option value="+20">+20</option>
+            <option value="+234">+234</option>
+            <option value="+1">+1</option>
+            <option value="+44">+44</option>
+            <option value="+61">+61</option>
+            <option value="+82">+82</option>
+            <option value="+35">+55</option>
+            <option value="+52">+52</option>
+            <option value="+7">+7</option>
+            <option value="+39">+39</option>
+            <option value="+34">+34</option>
+            <option value="+86">+86</option>
+            <option value="+91">+91</option>
+            <option value="+49">+49</option>
             <option value="+33">+33</option>
-            <option value="+33">+81</option>
-            <option value="+33">+886</option>
-            <option value="+33">+852</option>
-            <option value="+33">+64</option>
-            <option value="+33">+996</option>
-            <option value="+33">+971</option>
-            <option value="+33">+90</option>
+            <option value="+81">+81</option>
+            <option value="+886">+886</option>
+            <option value="+852">+852</option>
+            <option value="+64">+64</option>
+            <option value="+996">+996</option>
+            <option value="+971">+971</option>
+            <option value="+90">+90</option>
           </select>
           <input
             v-model="form.phone"
@@ -145,7 +145,6 @@ function onSubmit() {
   for (const key in form) {
     if (!form[key]) {
       notify({
-        title: t("提示"),
         message: t(`请填写${key}`),
         type: "error",
       });
@@ -160,10 +159,10 @@ function onSubmit() {
 
   register(payload).then((res) => {
     if (res.code === 200) {
-      notify({ title: t("通知"), message: t("操作成功"), type: "success" });
+      notify({ message: t("操作成功"), type: "success" });
       router.push("/login");
     } else {
-      notify({ title: t("通知"), message: t(res.msg), type: "error" });
+      notify({ message: t(res.msg), type: "error" });
     }
   });
 }

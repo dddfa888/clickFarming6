@@ -23,7 +23,7 @@
 import { ref } from "vue";
 import HeaderBar from "../../components/HeaderBar.vue";
 import { getUserInfo, updateUserSimpleFront } from "../../api/index";
-import { showToast } from "vant";
+import { notify } from "../../utils/notify.js";
 const inputValue = ref("");
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
@@ -41,15 +41,17 @@ function submit() {
   updateUserSimpleFront({ withdrawalAddress: withdrawalAddress.value }).then(
     (res) => {
       if (res.code === 200) {
-        showToast({
+        notify({
           message: t("操作成功"),
           type: "success",
+          duration: 2000,
         });
         hasData.value = true;
       } else {
-        showToast({
+        notify({
           message: t(res.msg),
-          type: "fail",
+          type: "error",
+          duration: 2000,
         });
       }
     }
@@ -90,7 +92,6 @@ function submit() {
   background-image: linear-gradient(to bottom, #3a405c, #365354);
   box-shadow: 5px 8px 10px #272c3e, 0 0 10px #272c3e;
 }
-
 
 .input {
   width: 100%;
