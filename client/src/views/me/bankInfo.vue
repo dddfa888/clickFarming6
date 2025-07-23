@@ -258,7 +258,7 @@ function submit() {
   }).then((res) => {
     console.log(res);
     if (res.code == 200) {
-      notify({
+      globalThis.$notify({
         message: t("操作成功"),
         type: "success",
         duration: 2000,
@@ -266,7 +266,7 @@ function submit() {
       // 刷新页面
       window.location.reload();
     } else {
-      notify({
+      globalThis.$notify({
         message: t(res.msg),
         type: "error",
         duration: 2000,

@@ -106,7 +106,7 @@ function toggleLangList() {
 function onSubmit(values) {
   login(form).then((res) => {
     if (res.code === 200) {
-      notify({
+      globalThis.$notify({
 
         message: t("操作成功"),
         type: "success",
@@ -115,7 +115,7 @@ function onSubmit(values) {
       localStorage.setItem("token", res.data.token);
       router.push("/");
     } else {
-      notify({
+      globalThis.$notify({
 
         message: t(res.msg),
         type: "error",

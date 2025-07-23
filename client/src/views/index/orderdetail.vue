@@ -99,7 +99,7 @@ const formatCurrency = (value) => {
 
 const Sendbutton = () => {
   if (!order.value.withdrawalAddress) {
-    notify({
+    globalThis.$notify({
       message: t("地址未填写,请填写完整"),
       type: "warning",
       duration: 4000,
@@ -108,16 +108,17 @@ const Sendbutton = () => {
     return;
   }
   createOrder().then((res) => {
-    console.log(res.orderId);
+    console.log(res,"ghjgj");
     if (res.code === 200) {
       showModal.value = true;
       id.value = res.orderId;
     } else {
-      notify({
-        message: t(res.msg),
-        type: "error",
-        duration: 4000,
-      });
+        globalThis.$notify({
+    message: t(res.msg),
+    type: "error",
+    duration: 4000,
+  });
+     
     }
   });
 };
@@ -125,24 +126,29 @@ const Sendbutton = () => {
 const handlePay = () => {
   showModal.value = false;
   sendDistribution(id.value).then((res) => {
-    console.log(res);
+    console.log(res,ghgh);
     if (res.code === 200) {
-      notify({
-        message: t("正在分发"),
-        type: "success",
-        duration: 3000,
-      });
-      notify({
+       globalThis.$notify({
+  title: "",
+  message: t("正在分发"),
+  type: "warning",
+  duration: 3000
+})
+
+setTimeout(() => {
+  globalThis.$notify({
         message: t("订单支付成功！"),
         type: "success",
         duration: 4000,
       });
+}, 1000);
+    
       // 支付成功后刷新余额
       getUserGradeAndBalanceAndDiscount().then((refreshRes) => {
         order.value = refreshRes.data;
       });
     } else {
-      notify({
+      globalThis.$notify({
         message: t(res.msg),
         type: "error",
         duration: 4000,

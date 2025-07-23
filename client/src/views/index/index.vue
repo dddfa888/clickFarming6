@@ -204,13 +204,13 @@ const handleConfirm = () => {
   updateGrade(uid.value).then((res) => {
     console.log(res);
     if (res.code === 200) {
-      notify({
+      globalThis.$notify({
         message: t(res.msg),
         type: "success",
         duration: 2000,
       });
     } else {
-      notify({
+      globalThis.$notify({
         message: t(res.msg),
         type: "warning",
         duration: 2000,

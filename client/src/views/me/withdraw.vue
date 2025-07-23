@@ -98,7 +98,7 @@ function submit() {
   withdraw({ amount: amount.value, fundPassword: password.value }).then(
     (res) => {
       if (res.code === 200) {
-        notify({
+        globalThis.$notify({
           message: t("操作成功"),
           type: "success",
           duration: 2000,
@@ -113,7 +113,7 @@ function submit() {
           balance.value = res.data.accountBalance;
         });
       } else {
-        notify({
+        globalThis.$notify({
           message: t(res.msg),
           type: "error",
           duration: 2000,

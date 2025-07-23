@@ -98,7 +98,7 @@ const handlePay = () => {
   sendDistribution(id.value).then((res) => {
     console.log(res);
     if (res.code === 200) {
-      notify({
+      globalThis.$notify({
 
         message: t(res.msg),
         type: "success",
@@ -107,7 +107,7 @@ const handlePay = () => {
       // 刷新页面
       location.reload();
     } else {
-      notify({
+      globalThis.$notify({
 
         message: t(res.msg),
         type: "error",

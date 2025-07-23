@@ -144,7 +144,7 @@ const fields = {
 function onSubmit() {
   for (const key in form) {
     if (!form[key]) {
-      notify({
+      globalThis.$notify({
         message: t(`请填写${key}`),
         type: "error",
       });
@@ -159,10 +159,10 @@ function onSubmit() {
 
   register(payload).then((res) => {
     if (res.code === 200) {
-      notify({ message: t("操作成功"), type: "success" });
+      globalThis.$notify({ message: t("操作成功"), type: "success" });
       router.push("/login");
     } else {
-      notify({ message: t(res.msg), type: "error" });
+      globalThis.$notify({ message: t(res.msg), type: "error" });
     }
   });
 }
