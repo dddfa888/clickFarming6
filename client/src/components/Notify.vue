@@ -6,15 +6,20 @@
     @mouseleave="resumeTimer"
   >
     <div class="notify-content">
-      <strong class="title">{{ title }}</strong>
-      <p class="message">{{ message }}</p>
+      <!-- 左侧图标 -->
+      <div class="text-content">
+        <strong class="title">{{ title }}</strong>
+        <p class="message">{{ message }}</p>
+      </div>
     </div>
+
     <span class="close-btn" @click="close">×</span>
+    <div class="progress-bar" :style="progressBarStyle"></div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, watchEffect } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
 
 const props = defineProps({
   title: { type: String, default: "" },
@@ -32,20 +37,54 @@ const emit = defineEmits(["close"]);
 const visible = ref(true);
 let timer = null;
 
+// 图标映射
+// const iconMap = {
+//   success: "✔️",
+//   warning: "⚠️",
+//   error: "❌",
+//   info: "ℹ️",
+// };
+
+// const icon = computed(() => iconMap[props.type]);
+
+// 进度控制
+const progress = ref(100);
+let animationFrameId = null;
+let startTime = 0;
+let remainingTime = props.duration;
+
+const updateProgress = (timestamp) => {
+  if (!startTime) startTime = timestamp;
+  const elapsed = timestamp - startTime;
+  const percent = Math.max(100 - (elapsed / props.duration) * 100, 0);
+  progress.value = percent;
+
+  if (percent > 0) {
+    animationFrameId = requestAnimationFrame(updateProgress);
+  }
+};
+
 const startTimer = () => {
   if (props.duration > 0) {
-    timer = setTimeout(() => {
-      close();
-    }, props.duration);
+    startTime = performance.now();
+    remainingTime = props.duration;
+    timer = setTimeout(close, props.duration);
+    animationFrameId = requestAnimationFrame(updateProgress);
   }
 };
 
 const pauseTimer = () => {
   if (timer) clearTimeout(timer);
+  if (animationFrameId) cancelAnimationFrame(animationFrameId);
+  remainingTime = (progress.value / 100) * props.duration;
 };
 
 const resumeTimer = () => {
-  startTimer();
+  if (remainingTime > 0) {
+    startTime = performance.now();
+    timer = setTimeout(close, remainingTime);
+    animationFrameId = requestAnimationFrame(updateProgress);
+  }
 };
 
 const close = () => {
@@ -53,15 +92,18 @@ const close = () => {
   emit("close");
 };
 
-onMounted(() => {
-  startTimer();
-});
+const progressBarStyle = computed(() => ({
+  width: `${progress.value}%`,
+  transition: "width 0.1s linear",
+}));
 
+onMounted(startTimer);
 onUnmounted(() => {
   if (timer) clearTimeout(timer);
+  if (animationFrameId) cancelAnimationFrame(animationFrameId);
 });
-</script>
 
+</script>
 <style scoped>
 .notify {
   position: fixed;
@@ -112,6 +154,15 @@ onUnmounted(() => {
   }
 }
 
+ .progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background-color: #fff; /* 可替换为不同类型颜色 */
+  border-radius: 0 0 4px 4px;
+}
+
 @media (min-width: 768px) {
   .notify {
     position: fixed;
@@ -160,5 +211,13 @@ onUnmounted(() => {
       transform: translateY(0);
     }
   }
+  .progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background-color: #fff; /* 可替换为不同类型颜色 */
+  border-radius: 0 0 4px 4px;
+}
 }
 </style>

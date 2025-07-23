@@ -102,7 +102,7 @@ const Sendbutton = () => {
     notify({
       message: t("地址未填写,请填写完整"),
       type: "warning",
-      duration: 2000,
+      duration: 4000,
     });
     router.push({ path: "/address" });
     return;
@@ -116,7 +116,7 @@ const Sendbutton = () => {
       notify({
         message: t(res.msg),
         type: "error",
-        duration: 2000,
+        duration: 4000,
       });
     }
   });
@@ -128,9 +128,14 @@ const handlePay = () => {
     console.log(res);
     if (res.code === 200) {
       notify({
-        message: t(res.msg),
+        message: t("正在分发"),
         type: "success",
-        duration: 2000,
+        duration: 3000,
+      });
+      notify({
+        message: t("订单支付成功！"),
+        type: "success",
+        duration: 4000,
       });
       // 支付成功后刷新余额
       getUserGradeAndBalanceAndDiscount().then((refreshRes) => {
@@ -140,7 +145,7 @@ const handlePay = () => {
       notify({
         message: t(res.msg),
         type: "error",
-        duration: 2000,
+        duration: 4000,
       });
     }
   });
