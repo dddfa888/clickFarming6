@@ -25,7 +25,7 @@
             justify-content: space-around;
           "
         >
-          <img src="../../assets/img/可用余额.png" alt="" />
+          <img src="../../assets/img/可用余额.png" alt />
           <p class="balance-label">{{ t("可用余额") }}</p>
         </div>
         <p class="balance-amount">{{ userInfo.accountBalance || 0 }}€</p>
@@ -40,7 +40,7 @@
             justify-content: center;
           "
         >
-          <img src="../../assets/img/提款.png" alt="" />
+          <img src="../../assets/img/提款.png" alt />
           <p>{{ t("提款") }}</p>
         </div>
         <div
@@ -52,7 +52,7 @@
             justify-content: center;
           "
         >
-          <img src="../../assets/img/收款.png" alt="" />
+          <img src="../../assets/img/收款.png" alt />
           <p>{{ t("取款") }}</p>
         </div>
       </div>
@@ -66,7 +66,7 @@
       loop
       width="100%"
       height="200px"
-      src="../../assets/videos/INGKA .mp4"
+      src="../../assets/videos/INGKA.mp4"
     ></video>
 
     <h5>{{ t("概述:") }} INGKA CENTRES</h5>
@@ -78,11 +78,7 @@
         :key="item.label"
         @click="handleButtonClick(item.icon)"
       >
-        <img
-          style="width: 35px; height: 35px"
-          class="icon-img"
-          :src="item.icon"
-        />
+        <img style="width: 35px; height: 35px" class="icon-img" :src="item.icon" />
         <div style="text-align: center; margin-top: 5px">{{ item.label }}</div>
       </div>
     </div>
@@ -90,24 +86,27 @@
     <!-- 会员等级 -->
     <div class="title">{{ t("会员级别") }}</div>
     <div v-for="item in Recordlist" :key="item.id" class="member-level">
-      <div
-        v-if="level != item.id"
-        @click="handleUpgrade(item.id)"
-        class="level-title"
-      >
-        {{ t("开锁") }}
-      </div>
+      <div v-if="level != item.id" @click="handleUpgrade(item.id)" class="level-title">{{ t("开锁") }}</div>
       <div class="level-info">
-        <div class="col">{{ t("升级费") }}<br />{{ item.joinCost }}</div>
         <div class="col">
-          {{ t("折扣") }}<br />{{ item.minBonus }}%-{{ item.maxBonus }}%
+          {{ t("升级费") }}
+          <br />
+          {{ item.joinCost }}
         </div>
         <div class="col">
-          {{ t("分配数量") }}<br />
+          {{ t("折扣") }}
+          <br />
+          {{ item.minBonus }}%-{{ item.maxBonus }}%
+        </div>
+        <div class="col">
+          {{ t("分配数量") }}
+          <br />
           {{ item.buyProdNum }}
-          <span v-if="level === item.id" class="lock-icon">{{
+          <span v-if="level === item.id" class="lock-icon">
+            {{
             t("当前水平")
-          }}</span>
+            }}
+          </span>
           <span class="badge">{{ item.gradeName }}</span>
         </div>
       </div>
@@ -116,20 +115,16 @@
     <div class="title">{{ t("奖励获得者名单") }}</div>
     <div class="reward">
       <div class="reward-list">
-        <div
-          v-for="(reward, index) in rewards"
-          :key="index"
-          class="reward-item"
-        >
+        <div v-for="(reward, index) in rewards" :key="index" class="reward-item">
           <span class="reward-date">{{ reward.date }}</span>
           <span class="reward-message">
             {{
-              t("rewardMessage", {
-                username: reward.username,
-                amount: formatAmount(reward.amount),
-              })
-            }}</span
-          >
+            t("rewardMessage", {
+            username: reward.username,
+            amount: formatAmount(reward.amount),
+            })
+            }}
+          </span>
         </div>
       </div>
     </div>
@@ -161,7 +156,7 @@ import {
   getUserInfo,
   getMemberRecord,
   getUserNotifyNum,
-  updateGrade,
+  updateGrade
 } from "../../api/index.js";
 import { useI18n } from "vue-i18n";
 import { notify } from "../../utils/notify.js";
@@ -176,44 +171,44 @@ const notifyNum = ref(0);
 const showModal = ref(false);
 const uid = ref(null);
 
-const getImageUrl = (path) => {
+const getImageUrl = path => {
   return new URL(`../../assets/{path}`, import.meta.url).href;
 };
 
-const handleUpgrade = (id) => {
+const handleUpgrade = id => {
   uid.value = id;
   showModal.value = true;
 };
 
-getUserInfo().then((res) => {
+getUserInfo().then(res => {
   console.log(res.data);
   userInfo.value = res.data;
 });
-getMemberRecord().then((res) => {
+getMemberRecord().then(res => {
   if (res.code === 200) {
     Recordlist.value = res.data.userGrade || "";
     level.value = res.data.level;
   }
 });
-getUserNotifyNum().then((res) => {
+getUserNotifyNum().then(res => {
   notifyNum.value = res.data;
 });
 
 const handleConfirm = () => {
   let gradeId = uid.value;
-  updateGrade(uid.value).then((res) => {
+  updateGrade(uid.value).then(res => {
     console.log(res);
     if (res.code === 200) {
       globalThis.$notify({
         message: t(res.msg),
         type: "success",
-        duration: 2000,
+        duration: 2000
       });
     } else {
       globalThis.$notify({
         message: t(res.msg),
         type: "warning",
-        duration: 2000,
+        duration: 2000
       });
     }
   });
@@ -235,7 +230,7 @@ const generateUsername = () => {
     "geo",
     "mar",
     "jan",
-    "tom",
+    "tom"
   ];
   const suffix = ["b", "r", "e", "n", "y", "k", "m", "s", "d", "f"];
   const randomPrefix = prefix[Math.floor(Math.random() * prefix.length)];
@@ -255,7 +250,7 @@ const generateAmount = () => {
 };
 
 // 格式化金额显示
-const formatAmount = (amount) => {
+const formatAmount = amount => {
   return amount.replace(",", "."); // 转换为点分隔的格式
 };
 
@@ -266,7 +261,7 @@ const rewards = ref(
     .map(() => ({
       date: new Date().toISOString().split("T")[0],
       username: generateUsername(),
-      amount: generateAmount(),
+      amount: generateAmount()
     }))
 );
 
@@ -277,7 +272,7 @@ const updateRewards = () => {
     .map(() => ({
       date: new Date().toISOString().split("T")[0],
       username: generateUsername(),
-      amount: generateAmount(),
+      amount: generateAmount()
     }));
 };
 
@@ -290,16 +285,16 @@ onMounted(() => {
 
 const user = {
   name: "Linh198",
-  balance: "0.00 €",
+  balance: "0.00 €"
 };
 const infoBtns = computed(() => [
   { label: t("公司简介"), icon: notice },
   { label: t("基本原则"), icon: rule },
   { label: t("开发合作"), icon: cooperation },
-  { label: t("通知邮件"), icon: company },
+  { label: t("通知邮件"), icon: company }
 ]);
 
-const handleButtonClick = (icon) => {
+const handleButtonClick = icon => {
   if (icon === notice) {
     router.push({ path: "/company" });
   } else if (icon === rule) {
@@ -327,7 +322,7 @@ function withTimeout(promise, timeout = 5000) {
     promise,
     new Promise((_, reject) =>
       setTimeout(() => reject(new Error("请求超时")), timeout)
-    ),
+    )
   ]);
 }
 
@@ -339,7 +334,7 @@ onMounted(async () => {
     const [userRes, memberRes, notifyRes] = await Promise.all([
       withTimeout(getUserInfo(), 5000),
       withTimeout(getMemberRecord(), 5000),
-      withTimeout(getUserNotifyNum(), 5000),
+      withTimeout(getUserNotifyNum(), 5000)
     ]);
 
     // 设置用户信息

@@ -114,7 +114,7 @@ const router = useRouter();
 const langStore = useLangStore();
 const form = reactive({
   loginAccount: "",
-  areaCode: "+86",
+  areaCode: "+84",
   phone: "",
   loginPassword: "",
   fundPassword: "",
