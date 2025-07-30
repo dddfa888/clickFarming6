@@ -24,6 +24,9 @@ public class MUser
     @TableId
     private Long uid;
 
+    /** 头像 */
+    @Excel(name = "头像")
+    private String headImg;
 
     /** 等级 */
     @Excel(name = "等级")
