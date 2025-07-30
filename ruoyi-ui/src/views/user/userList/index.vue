@@ -233,26 +233,25 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('userPage.column.inviterCode')" align="center" >
+      <el-table-column :label="$t('userPage.column.inviterCode')" align="center" :min-width="200">
         <template slot-scope="scope">
-          <div v-if="scope.row.inviterName">
-            <div>{{ scope.row.inviterCode }}</div>
-            <div>{{ scope.row.inviterName }}</div>
-          </div>
+          <div v-if="scope.row.inviterName" style="white-space: nowrap;">
+      <span>{{ scope.row.inviterCode }}</span>
+      <span style="margin-left: 4px;">{{ scope.row.inviterName }}</span>
+    </div>
           <div v-else>/</div>
         </template>
       </el-table-column>
       <el-table-column :label="$t('userPage.column.regsterTime')" align="center" prop="createTime" width="160" />
-      <el-table-column :label="$t('userPage.column.lastLoginIp')" align="center" >
+      <el-table-column :label="$t('userPage.column.lastLoginIp')" align="center"  :min-width="200">
         <template slot-scope="scope">
-          <div v-if="scope.row.lastLoginIp">
-            <div>{{ scope.row.lastLoginIp }}</div>
-            <div>{{ scope.row.lastLoginIpAddress }}</div>
+          <div v-if="scope.row.lastLoginIp" style="white-space: nowrap;">
+            <div>{{ scope.row.lastLoginIp }}  {{ scope.row.lastLoginIpAddress }}</div>
           </div>
           <div v-else>没有数据</div>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('userPage.column.phoneNumber')" align="center" prop="phoneNumber" />
+      <el-table-column style="white-space: nowrap;" :label="$t('userPage.column.phoneNumber')" align="center" prop="phoneNumber" :min-width="200"/>
       <el-table-column :label="$t('userPage.column.accountBalance')" align="center" prop="accountBalance" />
       <el-table-column :label="$t('userPage.column.userStatus')" align="center" prop="status" width="80">
         <template slot-scope="scope">
@@ -264,7 +263,7 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column :label="$t('userPage.column.userLevel')" align="center" prop="levelName" width="70" />
+      <el-table-column style="white-space: nowrap;" :label="$t('userPage.column.userLevel')" align="center" prop="levelName" :min-width="200" />
 
 
 
@@ -321,7 +320,7 @@
         <el-input readonly v-model="balanceForm.originalBalance"></el-input>
       </el-form-item>
       <el-form-item :label="$t('userPage.balForm.newNum')" prop="balance">
-        <el-input v-model="balanceForm.balance"></el-input>
+        <el-input v-model="balanceForm.balance"  ref="balanceInput"></el-input>
       </el-form-item>
        <el-form-item :label="$t('userPage.balForm.selectReason')">
       <el-select v-model="selectedReason" placeholder="" @change="changeReason">
@@ -531,7 +530,6 @@
           <el-input
               v-model="form.loginAccount"
               placeholder="请输入账号"
-              :disabled="!JudgingStatus"
           />
         </el-form-item>
         <el-form-item label="等级" prop="level">
@@ -796,6 +794,18 @@ export default {
   mounted() {
     this.selectedReason=this.$t('userPage.balForm.noReason')
   },
+    watch: {
+  dialogBalance(val) {
+    if (val) {
+      this.$nextTick(() => {
+        // 聚焦 el-input 组件内部的原生 input
+        this.$refs.balanceInput.focus();
+        // 或选中全部内容：
+        // this.$refs.balanceInput.$el.querySelector('input').select();
+      });
+    }
+  }
+},
   methods: {
     //打开《订单设置》
     handleOpenOrederSet(row){
