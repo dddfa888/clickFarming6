@@ -185,5 +185,6 @@ export default {
     "您尚未填写银行信息，请点击留言。":"You have not filled in your bank information, please click on the message board.",
     "这里":"here",
     "填写信息":"fill in the information",
-    "今日提现已达最大次数":"Today's withdrawal has reached the maximum number"
+    "今日提现已达最大次数":"Today's withdrawal has reached the maximum number",
+    "支付请求失败":"Payment request failed"
 };

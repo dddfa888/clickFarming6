@@ -189,5 +189,6 @@ export default {
     "您尚未填写银行信息，请点击留言。":"Bạn chưa điền thông tin ngân hàng vui lòng click vào tin.",
     "这里":"Tại đây",
     "填写信息":" để đi điền thông",
-    "今日提现已达最大次数":"Số lần rút tiền hôm nay đã đạt giới hạn"
+    "今日提现已达最大次数":"Số lần rút tiền hôm nay đã đạt giới hạn",
+    "支付请求失败":"Yêu cầu thanh toán không thành công"
 };
