@@ -5,16 +5,13 @@
       <span class="label">{{ $t("语言") }}</span>
       <div class="dropdown-wrapper" @click="toggleLangList">
         {{ t(selectedLanguage) }}
-
         <ul v-if="showLangList" class="lang-dropdown">
           <li
             v-for="(lang, index) in languageList"
             :key="index"
             @click.stop="selectLanguage(lang)"
             :class="{ active: lang === selectedLanguage }"
-          >
-            {{ t(lang) }}
-          </li>
+          >{{ t(lang) }}</li>
         </ul>
       </div>
     </div>
@@ -29,26 +26,16 @@
       <form @submit.prevent="onSubmit">
         <div class="form-group">
           <i class="icon user-icon"></i>
-          <input
-            type="text"
-            v-model="form.loginAccount"
-            :placeholder="t('请填写用户名')"
-          />
+          <input type="text" v-model="form.loginAccount" :placeholder="t('请填写用户名')" />
         </div>
 
         <div class="form-group">
           <i class="icon lock-icon"></i>
-          <input
-            type="password"
-            v-model="form.loginPassword"
-            :placeholder="t('请填写密码')"
-          />
+          <input type="password" v-model="form.loginPassword" :placeholder="t('请填写密码')" />
         </div>
 
         <div class="login-btn" style="margin: 16px">
-          <button type="submit">
-            {{ t("现在登录") }}
-          </button>
+          <button type="submit">{{ t("现在登录") }}</button>
         </div>
       </form>
     </div>
@@ -66,7 +53,7 @@ import { notify } from "../../utils/notify.js";
 const router = useRouter();
 const form = reactive({
   loginAccount: "",
-  loginPassword: "",
+  loginPassword: ""
 });
 
 const langStore = useLangStore();
@@ -76,7 +63,7 @@ const showLangList = ref(false);
 const langMap = {
   越南语: "vi",
   // 中国: "zh",
-  英语: "en",
+  英语: "en"
   // 日本: "ja",
   // 法国: "fr",
   // 俄罗斯: "ru",
@@ -104,22 +91,20 @@ function toggleLangList() {
 }
 
 function onSubmit(values) {
-  login(form).then((res) => {
+  login(form).then(res => {
     if (res.code === 200) {
       globalThis.$notify({
-
         message: t("操作成功"),
         type: "success",
-        duration: 2000,
+        duration: 2000
       });
       localStorage.setItem("token", res.data.token);
       router.push("/");
     } else {
       globalThis.$notify({
-
         message: t(res.msg),
         type: "error",
-        duration: 2000,
+        duration: 2000
       });
     }
   });

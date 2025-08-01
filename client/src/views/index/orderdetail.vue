@@ -110,6 +110,16 @@ const Sendbutton = debounce(() => {
         showModal.value = true;
         id.value = res.orderId;
         // ❗不要解锁，等待支付成功后解锁
+      } else if (res.code === 5001) {
+        globalThis.$notify({
+          message: t("membership_requirement", {
+            level: t(res.data.level),
+            value: res.data.value
+          }),
+          type: "error",
+          duration: 4000
+        });
+        isProcessing.value = false; // ❗失败立即解锁
       } else {
         globalThis.$notify({
           message: t(res.msg),
