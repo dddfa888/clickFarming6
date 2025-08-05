@@ -16,12 +16,12 @@
     </div>
 
     <div class="form-group">
-      <label :class="{ floated: accountNumber }">{{ t("账号名称") }}</label>
-      <input v-model="accountNumber" type="text" class="input" :disabled="showinput" />
+      <label :class="{ floated: bankName }">{{ t("账号名称") }}</label>
+      <input v-model="bankName" type="text" class="input" :disabled="showinput" />
     </div>
     <div class="form-group">
-      <label :class="{ floated: bankName }">{{ t("账号") }}</label>
-      <input v-model="bankName" type="text" class="input" :disabled="showinput" />
+      <label :class="{ floated: accountNumber }">{{ t("账号") }}</label>
+      <input v-model="accountNumber" type="text" class="input" :disabled="showinput" />
     </div>
     <div class="form-group" v-if="showBank">
       <label :class="{ floated: fundPassword }">{{ t("提款密码") }}</label>
@@ -234,8 +234,8 @@ function submit() {
   );
   updateUserInfo({
     bankAccountName: accountName.value,
-    bankAccountNumber: accountNumber.value,
-    bankName: bankName.value,
+    bankAccountNumber: bankName.value,
+    bankName: accountNumber.value,
     fundPassword: fundPassword.value
   }).then(res => {
     console.log(res);

@@ -34,7 +34,7 @@ const { t } = useI18n();
 const transactions = ref([]);
 
 const formatAmount = amount => {
-  return amount.toFixed(2).replace(".", ",") + " €";
+  return amount.toFixed(2).replace(".", ",") + " $";
 };
 
 getDepositRecord().then(res => {

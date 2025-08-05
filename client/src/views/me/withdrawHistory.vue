@@ -2,41 +2,38 @@
   <div class="company-intro">
     <HeaderBar :title="t('提款记录')" />
     <div class="transaction-list">
-      <div
-        v-for="(transaction, index) in transactions"
-        :key="index"
-        class="transaction-item"
-      >
+      <div v-for="(transaction, index) in transactions" :key="index" class="transaction-item">
         <div class="transaction-info">
           <!-- <div class="transaction-time">
             {{ t("时间") }}:{{ transaction.createTime }}
-          </div> -->
+          </div>-->
           <div
             class="transaction-amount"
             :class="{ negative: transaction.amount < 0 }"
-          >
-            {{ t("金钱数额") }}:- {{ formatAmount(transaction.amount) }}
-          </div>
-          <div class="transaction-balance">
-            {{ t("剩余") }}: {{ formatAmount(transaction.accountBack) }}
-          </div>
+          >{{ t("金钱数额") }}:- {{ formatAmount(transaction.amount) }}</div>
+          <div
+            class="transaction-balance"
+          >{{ t("剩余") }}: {{ formatAmount(transaction.accountBack) }}</div>
           <!-- <div class="transaction-balance">
             {{
               transaction.reasonForRejection === null
                 ? transaction.reasonForRejection
                 : t("原因")+":" + transaction.reasonForRejection
             }}
-          </div> -->
+          </div>-->
         </div>
-        <div v-if="transaction.status === 0" class="transaction-status">
-          {{ t("transaction.pending") }}
-        </div>
-        <div v-if="transaction.status === 1" class="transaction-status">
-          {{ t("transaction.success") }}
-        </div>
-        <div v-if="transaction.status === 2" class="transaction-status">
-          {{ t("transaction.failed") }}
-        </div>
+        <div
+          v-if="transaction.status === 0"
+          class="transaction-status"
+        >{{ t("transaction.pending") }}</div>
+        <div
+          v-if="transaction.status === 1"
+          class="transaction-status"
+        >{{ t("transaction.success") }}</div>
+        <div
+          v-if="transaction.status === 2"
+          class="transaction-status"
+        >{{ t("transaction.failed") }}</div>
       </div>
     </div>
   </div>
@@ -50,11 +47,11 @@ import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const transactions = ref([]);
 
-const formatAmount = (amount) => {
-  return amount.toFixed(2).replace(".", ",") + " €";
+const formatAmount = amount => {
+  return amount.toFixed(2).replace(".", ",") + " $";
 };
 
-getWithdrawRecord().then((res) => {
+getWithdrawRecord().then(res => {
   console.log(res.rows);
   transactions.value = res.rows;
   console.log(transactions.value, 21);

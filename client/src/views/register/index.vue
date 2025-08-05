@@ -5,16 +5,13 @@
       <span class="label">{{ $t("语言") }}</span>
       <div class="dropdown-wrapper" @click="toggleLangList">
         {{ t(selectedLanguage) }}
-
         <ul v-if="showLangList" class="lang-dropdown">
           <li
             v-for="(lang, index) in languageList"
             :key="index"
             @click.stop="selectLanguage(lang)"
             :class="{ active: lang === selectedLanguage }"
-          >
-            {{ t(lang) }}
-          </li>
+          >{{ t(lang) }}</li>
         </ul>
       </div>
     </div>
@@ -30,12 +27,7 @@
         <!-- 账号 -->
         <div class="form-group">
           <i class="iconfont icon-user input-icon"></i>
-          <input
-            v-model="form.loginAccount"
-            type="text"
-            :placeholder="t('请输入账号')"
-            required
-          />
+          <input v-model="form.loginAccount" type="text" :placeholder="t('请输入账号')" required />
         </div>
 
         <!-- 手机号带区号 -->
@@ -86,10 +78,46 @@
           <i :class="item.icon" class="input-icon"></i>
           <input
             v-model="form[key]"
-            :type="item.type"
+            :type="passwordVisible[key] ? 'text' : item.type"
             :placeholder="t(item.placeholder)"
             required
           />
+          <!-- 仅 password 字段显示切换图标 -->
+          <!-- 明文图标（eye-open） -->
+          <svg
+            v-if="item.type === 'password' && passwordVisible[key]"
+            @click="togglePassword(key)"
+            xmlns="http://www.w3.org/2000/svg"
+            class="toggle-eye"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+
+          <!-- 密文图标（eye-off） -->
+          <svg
+            v-else-if="item.type === 'password'"
+            @click="togglePassword(key)"
+            xmlns="http://www.w3.org/2000/svg"
+            class="toggle-eye"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M17.94 17.94A10.94 10.94 0 0 1 12 20C5 20 1 12 1 12A21.84 21.84 0 0 1 6.29 6.29M9.88 9.88A3 3 0 0 0 12 15a3 3 0 0 0 2.12-5.12"
+            />
+            <line x1="1" y1="1" x2="23" y2="23" />
+          </svg>
         </div>
 
         <!-- 注册按钮 -->
@@ -118,26 +146,35 @@ const form = reactive({
   phone: "",
   loginPassword: "",
   fundPassword: "",
-  invitationCode: "",
+  invitationCode: ""
 });
+
+const passwordVisible = reactive({
+  loginPassword: false,
+  fundPassword: false
+});
+
+function togglePassword(key) {
+  passwordVisible[key] = !passwordVisible[key];
+}
 
 // 动态渲染字段（不包含 loginAccount 和 phone）
 const fields = {
   loginPassword: {
     placeholder: "请输入密码",
     type: "password",
-    icon: "iconfont icon-lock",
+    icon: "iconfont icon-lock"
   },
   fundPassword: {
     placeholder: "请输入确认密码",
     type: "password",
-    icon: "iconfont icon-lock",
+    icon: "iconfont icon-lock"
   },
   invitationCode: {
     placeholder: "请输入邀请码",
     type: "text",
-    icon: "iconfont icon-invite",
-  },
+    icon: "iconfont icon-invite"
+  }
 };
 
 // 表单提交
@@ -146,7 +183,7 @@ function onSubmit() {
     if (!form[key]) {
       globalThis.$notify({
         message: t(`请填写${key}`),
-        type: "error",
+        type: "error"
       });
       return;
     }
@@ -154,10 +191,10 @@ function onSubmit() {
 
   const payload = {
     ...form,
-    phone: form.areaCode + form.phone, // 拼接完整手机号
+    phone: form.areaCode + form.phone // 拼接完整手机号
   };
 
-  register(payload).then((res) => {
+  register(payload).then(res => {
     if (res.code === 200) {
       globalThis.$notify({ message: t("操作成功"), type: "success" });
       router.push("/login");
@@ -171,12 +208,12 @@ function onSubmit() {
 const showLangList = ref(false);
 const langMap = {
   越南语: "vi",
-  // 中国: "zh",
+  中国: "zh",
   英语: "en",
-  // 日本: "ja",
-  // 法国: "fr",
-  // 俄罗斯: "ru",
-  // 韩国: "ko",
+  日本: "ja",
+  法国: "fr",
+  俄罗斯: "ru",
+  韩国: "ko"
 };
 const languageList = Object.keys(langMap);
 const reverseLangMap = Object.fromEntries(
@@ -213,6 +250,17 @@ function toggleLangList() {
   box-sizing: border-box;
 }
 
+.toggle-eye {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  stroke: #888;
+  cursor: pointer;
+}
+
 .phone-group {
   display: flex;
   align-items: center;
@@ -222,6 +270,16 @@ function toggleLangList() {
   box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   position: relative;
+}
+
+.toggle-eye {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #888;
+  cursor: pointer;
 }
 
 .area-select {
@@ -342,7 +400,7 @@ function toggleLangList() {
   padding: 12px 12px 12px 40px;
   border: 1px solid #ccc;
   border-radius: 999px;
-  font-size: 16px;
+  font-size: 14px;
   background: #c5c5c5;
   box-sizing: border-box;
 }
@@ -409,9 +467,20 @@ function toggleLangList() {
     padding: 12px 12px 12px 40px;
     border: 1px solid #ccc;
     border-radius: 999px;
-    font-size: 16px;
+    font-size: 14px;
     background: #c5c5c5;
     box-sizing: border-box;
+  }
+
+  .toggle-eye {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    stroke: #888;
+    cursor: pointer;
   }
 
   .input-icon {
@@ -421,6 +490,16 @@ function toggleLangList() {
     transform: translateY(-50%);
     font-size: 18px;
     color: #888;
+  }
+
+  .toggle-eye {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #888;
+    cursor: pointer;
   }
 
   .phone-group {
@@ -533,7 +612,7 @@ function toggleLangList() {
     padding: 12px 12px 12px 40px;
     border: 1px solid #ccc;
     border-radius: 999px;
-    font-size: 16px;
+    font-size: 14px;
     outline: none;
     background-color: #c5c5c5;
   }

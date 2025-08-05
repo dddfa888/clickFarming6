@@ -28,11 +28,12 @@ const tabbarPaths = [
   "/groupReport",
   "/rewardHistory",
   "/depositHistory",
-  "/withdrawHistory",
+  "/withdrawHistory"
 ];
 
 const showTabBar = computed(() => tabbarPaths.includes(route.path));
 </script>
+
 
 <style scoped>
 html,

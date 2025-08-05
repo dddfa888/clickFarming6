@@ -6,18 +6,18 @@
           <van-icon name="arrow-left" />
           <span class="back">{{ t("取款") }}</span>
         </div>
-        <span class="balance">{{ balance }} €</span>
+        <span class="balance">{{ balance }} $</span>
       </div>
 
       <div class="form" v-if="bankAccountNumber && bankName">
         <div class="form-group">
           <label>{{ t("账户名称") }}</label>
-          <input type="text" v-model="bankAccountNumber" disabled />
+          <input type="text" v-model="bankName" disabled />
         </div>
 
         <div class="form-group">
           <label>{{ t("账号") }}</label>
-          <input type="text" v-model="bankName" disabled />
+          <input type="text" v-model="bankAccountNumber" disabled />
         </div>
 
         <div class="form-group amount-group">
