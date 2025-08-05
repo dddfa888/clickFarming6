@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ruoyi.business.domain.OrderReceiveRecord;
+import com.ruoyi.click.domain.vo.OrderReceiveRecordVo;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -100,5 +101,7 @@ public interface OrderReceiveRecordMapper
      * @return 统计数量结果
      */
     BigDecimal sumAmountByUserDate(Map<String,Object> param);
+
+    List<OrderReceiveRecordVo> selectListOrderDescVo(OrderReceiveRecord orderReceiveRecord);
 
 }
