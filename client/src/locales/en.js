@@ -194,7 +194,7 @@ export default {
     "访问过于频繁，请稍候再试":"Access is too frequent, please try again later",
     "服务器限流异常，请稍候再试":"Server rate limiting exception, please try again later",
     "服务器繁忙，请稍后再试":"Server is busy, please try again later",
-
+    "当前等级":"Current level",
     "提现成功":"Withdrawal successful",
     "银行卡已被绑定":"Bank card has been bound",
     "银行卡号不能为空":"Bank card number cannot be empty",
@@ -204,4 +204,7 @@ export default {
     "用户名或密码错误":"Username or password error",
     "手机号已被注册":"Phone number has been registered",
     "注册成功":"Registration successful",   
+    "充值":"Recharge",
+    "充值成功":"Recharge successful",
+    "充值记录":"Recharge record",
 };

@@ -27,7 +27,6 @@
     </div>
   </div>
   <!-- 客服弹窗组件 -->
-  <!--<CustomerServicePopup :visible="showCustomerService" @close="showCustomerService = false" />-->
 </template>
 
 
@@ -35,7 +34,6 @@
 import { ref, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
-import CustomerServicePopup from "./CustomerServicePopup.vue"; // 引入路径
 
 const { t } = useI18n();
 const getImageUrl = name =>
@@ -77,7 +75,11 @@ const currentRoute = computed(() => route.path);
 
 const navigate = (path, name = "") => {
   if (name === "CSKH") {
-    showCustomerService.value = true;
+    if (window.Tawk_API && typeof window.Tawk_API.maximize === "function") {
+      window.Tawk_API.maximize();
+    } else {
+      console.warn("Tawk API not ready yet.");
+    }
     return;
   }
 

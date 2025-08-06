@@ -34,7 +34,7 @@
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { useLangStore } from "../store/useLangStore.js";
-import { reactive, ref } from "vue";
+import { reactive, ref, onMounted } from "vue";
 
 const router = useRouter();
 const langStore = useLangStore();

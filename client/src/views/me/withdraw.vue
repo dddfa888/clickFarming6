@@ -122,8 +122,8 @@ function submit() {
 }
 
 getUserInfo().then(res => {
-  bankAccountNumber.value = res.data.bankAccountNumber;
-  bankName.value = formatBankCard(res.data.bankName);
+  bankAccountNumber.value = formatBankCard(res.data.bankAccountNumber);
+  bankName.value = res.data.bankName;
   balance.value = res.data.accountBalance;
 });
 

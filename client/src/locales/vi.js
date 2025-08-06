@@ -207,4 +207,7 @@ export default {
     "用户名或密码错误":"Tên người dùng hoặc mật khẩu không đúng",
     "手机号已被注册":"Số điện thoại đã được đăng ký",
     "注册成功":"Đăng ký thành công",
+    "当前等级":"Hiện tại cấp bậc",
+    "充值":"Nạp tiền",
+    "充值记录":"Lịch sử nạp tiền"
 };

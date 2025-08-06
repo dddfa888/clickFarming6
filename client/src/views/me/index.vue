@@ -31,7 +31,7 @@
       <button class="action-btn" @click="handleAction('withdrawHistory')">{{ t("提款记录") }}</button>
       <button class="action-btn" @click="handleAction('depositHistory')">{{ t("存款记录") }}</button>
       <button class="action-btn" @click="handleAction('orderHistory')">{{ t("订单历史") }}</button>
-      <button class="action-btn" @click="handleAction('rewardHistory')">{{ t("奖励历史记录") }}</button>
+      <button class="action-btn" @click="handleAction('rewardHistory')">{{ t("充值记录") }}</button>
       <button class="action-btn" @click="handleAction('groupReport')">{{ t("小组报告") }}</button>
       <button class="action-btn" @click="handleAction('bankInfo')">{{ t("银行信息") }}</button>
       <button class="action-btn" @click="handleAction('address')">{{ t("地址") }}</button>
@@ -107,8 +107,11 @@ getUserInfo().then(res => {
 
 const handleAction = row => {
   if (row === "deposit") {
-    window.location.href =
-      "https://chat.ichatlink.net/widget/standalone.html?eid=f653fb3a48bd5da3b540819202afbd16&language=vi";
+    if (window.Tawk_API && typeof window.Tawk_API.maximize === "function") {
+      window.Tawk_API.maximize();
+    } else {
+      console.warn("Tawk API not ready yet.");
+    }
   } else if (row === "withdraw") {
     router.push("/withdraw");
   } else if (row === "withdrawHistory") {

@@ -139,7 +139,7 @@ onMounted(async () => {
   background: url("../../assets/img/BG-kho-B9q9tfZS.png") no-repeat center
     center fixed;
   color: #fff;
-  padding: 10px;
+  padding: 30px;
   padding-bottom: 105px;
 }
 
@@ -155,7 +155,7 @@ onMounted(async () => {
   align-items: center;
   margin: 0;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .total-amount {

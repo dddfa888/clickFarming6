@@ -3,11 +3,11 @@
     <HeaderBar :title="t('银行信息')" />
     <!-- 选择银行：支持输入 + 下拉 -->
     <div class="form-group select-wrapper">
-      <label :class="{ floated: accountName }">{{ t("选择银行") }}</label>
+      <label :class="{ floated: bankName }">{{ t("选择银行") }}</label>
       <div class="input-select-combo">
         <!-- <input v-model="accountName" type="text" class="input" placeholder="" /> -->
         <BankSelect
-          v-model="accountName"
+          v-model="bankName"
           :options="bankOptions"
           :placeholder="t('请输入或选择银行')"
           :show="showinput"
@@ -16,8 +16,8 @@
     </div>
 
     <div class="form-group">
-      <label :class="{ floated: bankName }">{{ t("账号名称") }}</label>
-      <input v-model="bankName" type="text" class="input" :disabled="showinput" />
+      <label :class="{ floated: accountName }">{{ t("账号名称") }}</label>
+      <input v-model="accountName" type="text" class="input" :disabled="showinput" />
     </div>
     <div class="form-group">
       <label :class="{ floated: accountNumber }">{{ t("账号") }}</label>
@@ -196,13 +196,8 @@ function onBankConfirm(value) {
 // 获取用户信息
 getUserInfo().then(res => {
   accountName.value = res.data.bankAccountName || "";
-  accountNumber.value = res.data.bankAccountNumber;
+  accountNumber.value = formatBankCard(res.data.bankAccountNumber);
   bankName.value = formatBankCard(res.data.bankName);
-  console.log(
-    res.data.bankAccountName,
-    res.data.bankAccountNumber,
-    res.data.bankName
-  );
   if (
     !res.data.bankAccountName &&
     !res.data.bankAccountNumber &&
@@ -234,8 +229,8 @@ function submit() {
   );
   updateUserInfo({
     bankAccountName: accountName.value,
-    bankAccountNumber: bankName.value,
-    bankName: accountNumber.value,
+    bankAccountNumber: accountNumber.value,
+    bankName: bankName.value,
     fundPassword: fundPassword.value
   }).then(res => {
     console.log(res);
