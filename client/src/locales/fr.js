@@ -205,6 +205,7 @@ export default {
     "用户名或密码错误":"Nom d'utilisateur ou mot de passe incorrect",
     "手机号已被注册":"Le numéro de téléphone a déjà été enregistré",
     "注册成功":"nscription réussie",  
+    "银行名":"Nom de la banque"
 };
 
    
