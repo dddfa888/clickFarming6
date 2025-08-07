@@ -107,10 +107,11 @@ getUserInfo().then(res => {
 
 const handleAction = row => {
   if (row === "deposit") {
-    if (window.Tawk_API && typeof window.Tawk_API.maximize === "function") {
-      window.Tawk_API.maximize();
+    if (window._MEIQIA) {
+      window._MEIQIA("showPanel"); // 显示入口按钮
+      window._MEIQIA("show"); // 直接弹出聊天窗口
     } else {
-      console.warn("Tawk API not ready yet.");
+      console.warn("美洽尚未加载完成");
     }
   } else if (row === "withdraw") {
     router.push("/withdraw");

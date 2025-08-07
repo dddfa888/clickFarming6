@@ -196,10 +196,18 @@ function onSubmit() {
 
   register(payload).then(res => {
     if (res.code === 200) {
-      globalThis.$notify({ message: t("操作成功"), type: "success" });
+      globalThis.$notify({
+        message: t("操作成功"),
+        type: "success",
+        duration: 2000
+      });
       router.push("/login");
     } else {
-      globalThis.$notify({ message: t(res.msg), type: "error" });
+      globalThis.$notify({
+        message: t(res.msg),
+        type: "error",
+        duration: 2000
+      });
     }
   });
 }
