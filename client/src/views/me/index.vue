@@ -107,12 +107,13 @@ getUserInfo().then(res => {
 
 const handleAction = row => {
   if (row === "deposit") {
-    if (window._MEIQIA) {
-      window._MEIQIA("showPanel"); // 显示入口按钮
-      window._MEIQIA("show"); // 直接弹出聊天窗口
-    } else {
-      console.warn("美洽尚未加载完成");
-    }
+    window.open("https://chatlink.ichatlinks.net/widget/standalone.html?eid=6df096f4e9b05ad245f542d63ed1c8d7&language=en", "_blank");
+    // if (window._MEIQIA) {
+    //   window._MEIQIA("showPanel"); // 显示入口按钮
+    //   window._MEIQIA("show"); // 直接弹出聊天窗口
+    // } else {
+    //   console.warn("美洽尚未加载完成");
+    // }
   } else if (row === "withdraw") {
     router.push("/withdraw");
   } else if (row === "withdrawHistory") {

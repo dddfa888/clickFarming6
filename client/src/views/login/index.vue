@@ -146,6 +146,12 @@ function onSubmit(values) {
         duration: 2000
       });
       localStorage.setItem("token", res.data.token);
+      if (window._MEIQIA) {
+        window._MEIQIA("client", {
+          name: res.data.loginAccount, // 假设后端返回了用户名
+          tel: res.data.phoneNumber // 假设后端返回了手机号
+        });
+      }
       router.push("/");
     } else {
       globalThis.$notify({
@@ -156,6 +162,26 @@ function onSubmit(values) {
     }
   });
 }
+
+// function onSubmit(values) {
+//   login(form).then(res => {
+//     if (res.code === 200) {
+//       globalThis.$notify({
+//         message: t("操作成功"),
+//         type: "success",
+//         duration: 2000
+//       });
+//       localStorage.setItem("token", res.data.token);
+//       router.push("/");
+//     } else {
+//       globalThis.$notify({
+//         message: t(res.msg),
+//         type: "error",
+//         duration: 2000
+//       });
+//     }
+//   });
+// }
 </script>
 
 <style scoped>
