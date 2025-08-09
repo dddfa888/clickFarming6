@@ -1,5 +1,5 @@
 <template>
-  <div class="company-intro">
+  <div class="company-intro" @scroll="handleScroll">
     <HeaderBar :title="t('提款记录')" />
     <div class="transaction-list">
       <div v-for="(transaction, index) in transactions" :key="index" class="transaction-item">
@@ -40,21 +40,49 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import HeaderBar from "../../components/HeaderBar.vue";
 import { getWithdrawRecord } from "../../api/index.js";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const transactions = ref([]);
+const pageNum = ref(1);
+const pageSize = ref(10);
+const loading = ref(false);
+const finished = ref(false); // 数据加载完毕标记
 
 const formatAmount = amount => {
   return amount.toFixed(2).replace(".", ",") + " $";
 };
 
-getWithdrawRecord().then(res => {
-  console.log(res.rows);
-  transactions.value = res.rows;
-  console.log(transactions.value, 21);
+const loadTransactions = async () => {
+  if (loading.value || finished.value) return;
+  loading.value = true;
+  try {
+    const res = await getWithdrawRecord(pageNum.value, pageSize.value);
+
+    if (res.rows && res.rows.length > 0) {
+      transactions.value.push(...res.rows);
+      pageNum.value += 1;
+    } else {
+      finished.value = true;
+    }
+  } catch (error) {
+    console.error(error);
+  } finally {
+    loading.value = false;
+  }
+};
+
+const handleScroll = e => {
+  const target = e.target;
+  if (target.scrollTop + target.clientHeight >= target.scrollHeight - 10) {
+    loadTransactions();
+  }
+};
+
+onMounted(() => {
+  loadTransactions();
 });
 </script>
 
@@ -63,7 +91,7 @@ getWithdrawRecord().then(res => {
   background: url("../../assets/img/background-D7o_xTde.png") no-repeat center
     center;
   height: 100vh;
-  overflow-y: auto;
+  overflow: auto;
 }
 
 .transaction-list {
@@ -126,7 +154,7 @@ getWithdrawRecord().then(res => {
       center;
     height: 100vh;
     width: 540px;
-    overflow-y: auto;
+    overflow: auto;
     margin: 0 auto;
   }
 

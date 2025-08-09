@@ -196,8 +196,8 @@ function onBankConfirm(value) {
 // 获取用户信息
 getUserInfo().then(res => {
   accountName.value = res.data.bankAccountName || "";
-  accountNumber.value = formatBankCard(res.data.bankAccountNumber);
-  bankName.value = formatBankCard(res.data.bankName);
+  accountNumber.value = formatBankCard(res.data.bankAccountNumber) || "";
+  bankName.value = res.data.bankName || "";
   if (
     !res.data.bankAccountName &&
     !res.data.bankAccountNumber &&
