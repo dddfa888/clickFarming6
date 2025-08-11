@@ -30,8 +30,8 @@
       <button class="action-btn" @click="handleAction('withdraw')">{{ t("取款") }}</button>
       <button class="action-btn" @click="handleAction('withdrawHistory')">{{ t("提款记录") }}</button>
       <button class="action-btn" @click="handleAction('depositHistory')">{{ t("存款记录") }}</button>
-      <button class="action-btn" @click="handleAction('orderHistory')">{{ t("订单历史") }}</button>
       <button class="action-btn" @click="handleAction('rewardHistory')">{{ t("充值记录") }}</button>
+      <button class="action-btn" @click="handleAction('orderHistory')">{{ t("订单历史") }}</button>
       <button class="action-btn" @click="handleAction('groupReport')">{{ t("小组报告") }}</button>
       <button class="action-btn" @click="handleAction('bankInfo')">{{ t("银行信息") }}</button>
       <button class="action-btn" @click="handleAction('address')">{{ t("地址") }}</button>
@@ -107,7 +107,10 @@ getUserInfo().then(res => {
 
 const handleAction = row => {
   if (row === "deposit") {
-    window.open("https://chatlink.ichatlinks.net/widget/standalone.html?eid=6df096f4e9b05ad245f542d63ed1c8d7&language=en", "_blank");
+    window.open(
+      "https://chatlink.ichatlinks.net/widget/standalone.html?eid=6df096f4e9b05ad245f542d63ed1c8d7&language=en",
+      "_blank"
+    );
     // if (window._MEIQIA) {
     //   window._MEIQIA("showPanel"); // 显示入口按钮
     //   window._MEIQIA("show"); // 直接弹出聊天窗口
