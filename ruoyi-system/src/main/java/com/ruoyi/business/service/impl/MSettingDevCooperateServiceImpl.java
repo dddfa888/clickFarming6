@@ -105,7 +105,11 @@ public class MSettingDevCooperateServiceImpl implements IMSettingDevCooperateSer
     @Override
     public MSettingDevCooperate selectByLang(String lang)
     {
-        Assert.notEmpty(lang, "请选择语种");
+        if (lang == null
+                || lang.trim().isEmpty()
+                || !(lang.equals("zh") || lang.equals("vi"))) {
+            lang = "en";
+        }
         return mSettingDevCooperateMapper.selectByLang(lang);
     }
 
