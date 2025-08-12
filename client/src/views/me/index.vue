@@ -108,7 +108,7 @@ getUserInfo().then(res => {
 const handleAction = row => {
   if (row === "deposit") {
     window.open(
-      "https://chatlink.ichatlinks.net/widget/standalone.html?eid=6df096f4e9b05ad245f542d63ed1c8d7&language=en",
+      "https://chat.ichatlink.net/widget/standalone.html?eid=6df096f4e9b05ad245f542d63ed1c8d7&language=en",
       "_blank"
     );
     // if (window._MEIQIA) {

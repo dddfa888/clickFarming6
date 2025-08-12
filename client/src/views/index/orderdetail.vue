@@ -48,14 +48,6 @@
           sản phẩm có liên quan về đơn đặt hàng , bao gồm thông tin sản phẩm chi
           tiết đơn hàng , giá trị sản phẩm , số lượng ...vv..
         </p>
-        <p>
-          Thành viên của Ingka Centres sẽ là nhà trung gian giúp xác nhận đơn
-          hàng giữa các NHÀ SẢN XUẤT & QUÝ ĐỐI TÁC ( người đặt mua ).
-        </p>
-        <p>
-          Thành viên của Ingka Centres sẽ là nhà trung gian giúp xác nhận đơn
-          hàng giữa các NHÀ SẢN XUẤT & QUÝ ĐỐI TÁC ( người đặt mua ).
-        </p>
       </div>
     </div>
     <ProductModal v-if="showModal" :id="id" @close="showModal = false" @pay="handlePay" />
@@ -340,7 +332,7 @@ getUserGradeAndBalanceAndDiscount().then(res => {
     margin-bottom: 25px;
     padding: 5px;
     border-radius: 6px;
-    margin: 0 auto;
+    margin: 25px auto;
   }
   .order-summary > img {
     width: 100%;
