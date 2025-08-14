@@ -14,11 +14,9 @@
           >{{ t("剩余") }}: {{ formatAmount(transaction.accountBack) }}</div>
         </div>
         <div class="transaction-status">
-          <!-- {{
-            transaction.status === 1
-              ? t("transaction.success")
-              : t("transaction.failed")
-          }}-->
+          {{
+          t("transaction.success")
+          }}
         </div>
       </div>
     </div>

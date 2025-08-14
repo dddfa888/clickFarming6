@@ -48,7 +48,7 @@ export default {
 "发行历史":"发行历史",
 "数据提供者IngkaCentres":"数据提供者IngkaCentres",
 "数据提供者 Ingka Centres":"数据提供者 Ingka Centres",
-"剩余":"平衡",
+"剩余":"剩余",
 "时间":"时间",
 "银行名":"银行名",
 "代码":"代码",

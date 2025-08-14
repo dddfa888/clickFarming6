@@ -103,7 +103,7 @@
         <div class="col">
           {{ t("升级费") }}
           <br />
-          {{ item.joinCost }}
+          {{ item.joinCost }}$
         </div>
         <div class="col">
           {{ t("折扣") }}
@@ -128,9 +128,8 @@
 
           <!-- 主体内容 -->
           <div class="content">
-            {{ t("分配数量") }}
-            <br />
-            {{ item.buyProdNum }}
+            <span>{{ t("分配数量") }}</span>
+            <span>{{ item.buyProdNum }}</span>
           </div>
         </div>
       </div>
@@ -720,6 +719,12 @@ onMounted(async () => {
   white-space: nowrap;
 }
 
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 @media screen and (min-width: 768px) {
   .home {
     max-width: 500px;
@@ -984,6 +989,12 @@ onMounted(async () => {
     padding: 2px 5px;
     margin-left: 5px;
     font-size: 12px;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 </style>
