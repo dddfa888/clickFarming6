@@ -38,8 +38,8 @@ router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token') // 假设你是用 token 存储登录状态
   const whiteList = ['/login', '/register', "/market"] // 白名单路由
 
-  if (whiteList.includes(to.path)) {
-    // 登录页、注册页无需验证
+  // 用 startsWith 来匹配，避免 query 参数或多斜杠导致白名单失效
+  if (whiteList.some(path => to.path.startsWith(path))) {
     return next()
   }
 
