@@ -107,7 +107,9 @@ function submit() {
       // 清空输入
       amount.value = "";
       password.value = "";
-
+      setTimeout(() => {
+        router.push("/withdrawHistory");
+      }, 2000);
       // 重新获取用户信息更新余额
       getUserInfo().then(res => {
         balance.value = res.data.accountBalance;
