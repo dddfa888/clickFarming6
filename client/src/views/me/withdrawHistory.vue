@@ -4,9 +4,7 @@
     <div class="transaction-list">
       <div v-for="(transaction, index) in transactions" :key="index" class="transaction-item">
         <div class="transaction-info">
-          <!-- <div class="transaction-time">
-            {{ t("时间") }}:{{ transaction.createTime }}
-          </div>-->
+          <div class="transaction-time">{{ $t("提款时间") }}:{{ transaction.createTime }}</div>
           <div
             class="transaction-amount"
             :class="{ negative: transaction.amount < 0 }"
@@ -148,6 +146,14 @@ onMounted(() => {
   font-size: 14px;
 }
 
+.transaction-time {
+  grid-column: 2;
+  grid-row: 1;
+  color: #fff;
+  text-align: right;
+  font-size: 14px;
+}
+
 @media screen and (min-width: 768px) {
   .company-intro {
     background: url("../../assets/img/background-D7o_xTde.png") no-repeat center
@@ -201,6 +207,14 @@ onMounted(() => {
     grid-column: 1 / span 2;
     grid-row: 2;
     color: #fff;
+    font-size: 14px;
+  }
+
+  .transaction-time {
+    grid-column: 2;
+    grid-row: 1;
+    color: #fff;
+    text-align: right;
     font-size: 14px;
   }
 
