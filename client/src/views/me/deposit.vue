@@ -56,6 +56,7 @@ getDepositRecord(pageNum.value, pageSize.value).then(res => {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  padding-bottom: 90px;
 }
 
 .transaction-item {
@@ -120,6 +121,7 @@ getDepositRecord(pageNum.value, pageSize.value).then(res => {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    padding-bottom: 90px;
   }
 
   .transaction-item {
