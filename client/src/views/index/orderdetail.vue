@@ -152,19 +152,16 @@ const handlePay = debounce(() => {
           title: "",
           message: t("正在分发"),
           type: "warning",
-          duration: 5000
+          duration: 8000
         });
-
         setTimeout(() => {
           globalThis.$notify({
             message: t("订单支付成功！"),
             type: "success",
-            duration: 6000
+            duration: 8000
           });
-
-          // ✅ 延迟解锁，确保通知出现后才能继续下单
           isProcessing.value = false;
-        }, 5000);
+        }, 8000);
 
         // 更新数据
         return getUserGradeAndBalanceAndDiscount().then(refreshRes => {
@@ -174,7 +171,7 @@ const handlePay = debounce(() => {
         globalThis.$notify({
           message: t(res.msg),
           type: "error",
-          duration: 4000
+          duration: 6000
         });
         isProcessing.value = false;
       }
@@ -187,7 +184,7 @@ const handlePay = debounce(() => {
       });
       isProcessing.value = false;
     });
-}, 1000);
+}, 2000);
 
 getUserGradeAndBalanceAndDiscount().then(res => {
   console.log(res.data);
