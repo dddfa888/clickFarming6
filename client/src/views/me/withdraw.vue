@@ -49,7 +49,10 @@
           />
         </div>
 
-        <button class="submit-btn" @click="submit">{{ t("取款") }}</button>
+        <!-- 按钮增加 :disabled 和 loading 状态显示 -->
+        <button class="submit-btn" :disabled="loading" @click="submit">
+          {{ loading ? t("处理中...") : t("取款") }}
+        </button>
       </div>
       <div v-else>
         {{ t("您尚未填写银行信息，请点击留言。") }}
@@ -82,6 +85,7 @@ const bankName = ref("");
 const amount = ref("");
 const password = ref("");
 const showPassword = ref(false);
+const loading = ref(false); // ✅ 新增 loading 状态
 const router = useRouter();
 
 function togglePassword() {
@@ -96,35 +100,53 @@ function toback() {
   router.go(-1);
 }
 function submit() {
-  withdraw({ amount: amount.value, fundPassword: password.value }).then(res => {
-    if (res.code === 200) {
-      globalThis.$notify({
-        message: t("操作成功"),
-        type: "success",
-        duration: 2000
-      });
+  if (loading.value) return; // ✅ 防止重复提交
+  loading.value = true;
 
-      // 清空输入
-      amount.value = "";
-      password.value = "";
-      setTimeout(() => {
-        router.push("/withdrawHistory");
-      }, 2000);
-      // 重新获取用户信息更新余额
-      getUserInfo().then(res => {
-        balance.value = res.data.accountBalance;
+  withdraw({ amount: amount.value, fundPassword: password.value })
+      .then(res => {
+        if (res.code === 200) {
+          globalThis.$notify({
+            message: t("操作成功"),
+            type: "success",
+            duration: 2000
+          });
+
+          // 清空输入
+          amount.value = "";
+          password.value = "";
+
+          setTimeout(() => {
+            router.push("/withdrawHistory");
+          }, 2000);
+
+          // 重新获取用户信息更新余额
+          getUserInfo().then(res => {
+            balance.value = res.data.accountBalance;
+          });
+        } else {
+          globalThis.$notify({
+            message: t(res.msg),
+            type: "error",
+            duration: 2000
+          });
+          amount.value = "";
+          password.value = "";
+        }
+      })
+      .catch(err => {
+        globalThis.$notify({
+          message: t("网络错误，请稍后重试"),
+          type: "error",
+          duration: 2000
+        });
+        console.error("withdraw error:", err);
+      })
+      .finally(() => {
+        loading.value = false; // ✅ 确保请求结束后恢复状态
       });
-    } else {
-      globalThis.$notify({
-        message: t(res.msg),
-        type: "error",
-        duration: 2000
-      });
-      amount.value = "";
-      password.value = "";
-    }
-  });
 }
+
 
 getUserInfo().then(res => {
   bankAccountNumber.value = formatBankCard(res.data.bankAccountNumber);
@@ -239,7 +261,7 @@ input[disabled] {
 @media screen and (min-width: 768px) {
   .withdraw-page {
     background: url("../../assets/img/background-D7o_xTde.png") no-repeat center
-      center;
+    center;
     height: 100vh;
     padding: 20px;
     width: 500px;

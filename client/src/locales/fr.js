@@ -220,5 +220,6 @@ export default {
 	"已有提现订单,请勿重复申请":"Nous avons une commande en espèces. Ne répétez pas la demande.",
 	"账号不能为空":"Le compte ne peut pas être vide",
 	"手机号不能为空":"Le téléphone portable ne peut pas être vide.",
+    "处理中...":"En cours de traitement..."
 
 };
