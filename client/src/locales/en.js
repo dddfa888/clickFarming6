@@ -222,6 +222,7 @@ export default {
 	"账号不能为空":"Account cannot be empty",
 	"手机号不能为空":"The phone number cannot be empty",
     "处理中...":"Processing...",
+    "网络错误，请稍后重试":"Network error, please try again later"
 
 
 
