@@ -12,13 +12,13 @@
           <div
             class="transaction-balance"
           >{{ t("剩余") }}: {{ formatAmount(transaction.accountBack) }}</div>
-          <!-- <div class="transaction-balance">
+          <div class="transaction-balance">
             {{
-              transaction.reasonForRejection === null
-                ? transaction.reasonForRejection
-                : t("原因")+":" + transaction.reasonForRejection
+              transaction.status === 2 && transaction.reasonForRejection
+                  ? t("原因") + ":" + transaction.reasonForRejection
+                  : ""
             }}
-          </div>-->
+          </div>
         </div>
         <div
           v-if="transaction.status === 0"
