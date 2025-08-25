@@ -100,7 +100,7 @@ export default {
     "我": "Tôi",
     "transaction": {
         "success": "Thành công",
-        "failed": "Thất bại",
+        "failed": "Lỗi",
         "pending": "Đang xét duyệt"
     },
     "404 页面不存在": "404 Không tìm thấy trang",
@@ -152,7 +152,7 @@ export default {
     "通知": "Thông báo",
     "全部": "tất cả",
     "提款密码": "Mật khẩu rút tiền",
-    "原因": "lý do",
+    "原因": "Nội dung",
     "请填写电话号码": "Vui lòng nhập số điện thoại",
     "请输入确认密码": "Vui lòng nhập mật khẩu xác nhận",
     "请填写邀请码": "Vui lòng nhập mã mời",
