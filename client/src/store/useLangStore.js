@@ -1,14 +1,15 @@
-import { defineStore } from 'pinia';
+import { defineStore } from "pinia";
 
-export const useLangStore = defineStore('lang', {
+export const useLangStore = defineStore("lang", {
   state: () => ({
-    locale: localStorage.getItem('locale') || 'vi'
+    locale: localStorage.getItem("locale") || "zh",
+    symbol: "￥",
   }),
   actions: {
     setLocale(lang) {
       this.locale = lang;
-      localStorage.setItem('locale', lang);
-    }
+      localStorage.setItem("locale", lang);
+    },
   },
   persist: true, // 开启持久化 pinia-plugin-persistedstate
 });

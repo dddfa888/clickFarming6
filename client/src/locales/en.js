@@ -44,7 +44,7 @@ export default {
   基本原则: "Foundation rules",
   开发合作: "Development cooperation",
   通知邮件: "Notification",
-  rewardMessage: "Congratulations {username} received {amount}$ profit",
+  rewardMessage: "Congratulations {username} received {amount}￥ profit",
   发行历史: "Distribution history",
   "数据提供者 Ingka Centres": "Data provider Ingka Centres",
   剩余: "Balance",
@@ -244,4 +244,8 @@ export default {
   "网络错误，请稍后重试": "Network error, please try again later",
   "提款数额必须为整数，不能包含小数":
     "The withdrawal amount must be an integer and cannot contain decimal places",
+  普通会员: "Regular Member",
+  白银会员: "Silver Member",
+  黄金会员: "Gold Member",
+  钻石会员: "Diamond Member",
 };

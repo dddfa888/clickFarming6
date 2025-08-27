@@ -44,7 +44,7 @@ export default {
   基本原则: "基础规则",
   开发合作: "发展合作",
   通知邮件: "通知邮件",
-  rewardMessage: "恭喜{username}收到{amount}欧元利润",
+  rewardMessage: "恭喜{username}收到{amount}RMB利润",
   发行历史: "发行历史",
   数据提供者IngkaCentres: "数据提供者IngkaCentres",
   "数据提供者 Ingka Centres": "数据提供者 Ingka Centres",
@@ -226,4 +226,8 @@ export default {
   "处理中...": "处理中...",
   "网络错误，请稍后重试": "网络错误，请稍后重试",
   "提款数额必须为整数，不能包含小数": "提款数额必须为整数，不能包含小数",
+  普通会员: "普通会员",
+  白银会员: "白银会员",
+  黄金会员: "黄金会员",
+  钻石会员: "钻石会员",
 };

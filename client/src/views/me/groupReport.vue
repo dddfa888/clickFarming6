@@ -28,7 +28,10 @@
             <img src="../../assets/img/3-DHl9k9P6.png" />
             <div>
               <p>{{ item.loginAccount }}</p>
-              <p>{{ t("剩余") }}: {{ item.accountBalance.toFixed(2) }} $</p>
+              <p>
+                {{ t("剩余") }}: {{ item.accountBalance.toFixed(2) }}
+                {{ langStore.symbol }}
+              </p>
             </div>
           </div>
           <div>
@@ -46,6 +49,9 @@ import { ref, computed } from "vue";
 import { getGroupReport } from "../../api/index.js";
 import HeaderBar from "../../components/HeaderBar.vue";
 import { useI18n } from "vue-i18n";
+import { useLangStore } from "../../store/useLangStore";
+const langStore = useLangStore();
+
 const { t } = useI18n();
 
 // 定义 tab 数据

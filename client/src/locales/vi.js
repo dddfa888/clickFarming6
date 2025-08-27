@@ -45,7 +45,7 @@ export default {
   基本原则: "Quy tắc nền tảng",
   开发合作: "Hợp tác phát triển",
   通知邮件: "Thư thông báo",
-  rewardMessage: "Chúc mừng {username} đã nhận được {amount}$ lợi nhuận",
+  rewardMessage: "Chúc mừng {username} đã nhận được {amount}RMB nhuận",
   平台代理模式: "Chế độ Proxy Platform",
   "Ingka Centres会员可以成为电商平台的代理商":
     "Thành viên Libre có thể trở thành đại lý của nền tảng thương mại điện tử",
@@ -246,4 +246,8 @@ export default {
   "网络错误，请稍后重试": "Lỗi mạng, vui lòng thử lại sau",
   "提款数额必须为整数，不能包含小数":
     "Số tiền rút phải là số nguyên, không được chứa số thập phân",
+  普通会员: "Hội viên thường",
+  白银会员: "Hội viên bạc",
+  黄金会员: "Hội viên vàng",
+  钻石会员: "Hội viên kim cương",
 };

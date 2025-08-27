@@ -2,7 +2,11 @@
   <div class="distribution-history">
     <HeaderBar :title="t('订单历史')" style="width: 500px" />
     <div class="history-list">
-      <div v-for="(item, index) in historyItems" :key="index" class="history-item">
+      <div
+        v-for="(item, index) in historyItems"
+        :key="index"
+        class="history-item"
+      >
         <div class="item-header">
           <div class="time-code">
             <span class="time">{{ t("时间") }}: {{ item.createTime }}</span>
@@ -16,7 +20,8 @@
             <div>{{ item.productName }}</div>
           </div>
           <div class="product-price">
-            {{ item.unitPrice }} $
+            {{ item.unitPrice }} {{ langStore.symbol }}
+
             <span class="quantity">x {{ item.number }}</span>
           </div>
         </div>
@@ -24,14 +29,18 @@
         <div class="calculation">
           <div class="calc-row">
             <span>{{ t("分配总额") }}:</span>
-            <span class="amount">{{ item.totalAmount }} $</span>
+            <span class="amount"
+              >{{ item.totalAmount }} {{ langStore.symbol }}</span
+            >
           </div>
           <div class="calc-row">
             <span>{{ t("利润") }}:</span>
-            <span class="amount">{{ item.profit }} $</span>
+            <span class="amount">{{ item.profit }} {{ langStore.symbol }}</span>
           </div>
           <span>{{ t("退款金额") }}:</span>
-          <span class="amount highlight">{{ item.refundAmount }} $</span>
+          <span class="amount highlight"
+            >{{ item.refundAmount }} {{ langStore.symbol }}</span
+          >
         </div>
       </div>
     </div>
@@ -43,6 +52,9 @@ import { ref } from "vue";
 import HeaderBar from "../../components/HeaderBar.vue";
 import { getOrderHistory } from "../../api/index.js";
 import { useI18n } from "vue-i18n";
+import { useLangStore } from "../../store/useLangStore.js";
+const langStore = useLangStore();
+
 const { t } = useI18n();
 
 const totalAmount = ref("532,94");
@@ -55,7 +67,7 @@ const handlePay = () => {
   showModal.value = false;
 };
 
-getOrderHistory().then(res => {
+getOrderHistory().then((res) => {
   console.log(res.rows);
   historyItems.value = res.rows;
 });

@@ -20,7 +20,7 @@
           ref="fileInput"
           type="file"
           accept="image/*"
-          style="display:none"
+          style="display: none"
           @change="handleFileChange"
         />
         <!--</el-upload> -->
@@ -48,7 +48,9 @@
           <img src="../../assets/img/可用余额.png" alt />
           <p class="balance-label">{{ t("可用余额") }}</p>
         </div>
-        <p class="balance-amount">{{ userInfo.accountBalance || 0 }}$</p>
+        <p class="balance-amount">
+          {{ userInfo.accountBalance || 0 }} {{ langStore.symbol }}
+        </p>
       </div>
       <div class="action-buttons">
         <div
@@ -79,7 +81,15 @@
     </div>
 
     <!-- 视频 -->
-    <video class="videos" controls muted loop width="100%" height="200px" :src="videoUrl"></video>
+    <video
+      class="videos"
+      controls
+      muted
+      loop
+      width="100%"
+      height="200px"
+      :src="videoUrl"
+    ></video>
 
     <h5>{{ t("概述:") }} INGKA CENTRES</h5>
     <!-- 功能按钮 -->
@@ -90,7 +100,11 @@
         :key="item.label"
         @click="handleButtonClick(item.icon)"
       >
-        <img style="width: 35px; height: 35px" class="icon-img" :src="item.icon" />
+        <img
+          style="width: 35px; height: 35px"
+          class="icon-img"
+          :src="item.icon"
+        />
         <div style="text-align: center; margin-top: 5px">{{ item.label }}</div>
       </div>
     </div>
@@ -98,12 +112,18 @@
     <!-- 会员等级 -->
     <div class="title">{{ t("会员级别") }}</div>
     <div v-for="item in Recordlist" :key="item.id" class="member-level">
-      <div v-if="level != item.id" @click="handleUpgrade(item.id)" class="level-title">{{ t("开锁") }}</div>
+      <div
+        v-if="level != item.id"
+        @click="handleUpgrade(item.id)"
+        class="level-title"
+      >
+        {{ t("开锁") }}
+      </div>
       <div class="level-info">
         <div class="col">
           {{ t("升级费") }}
           <br />
-          {{ item.joinCost }}$
+          {{ item.joinCost }}{{ langStore.symbol }}
         </div>
         <div class="col">
           {{ t("折扣") }}
@@ -122,8 +142,10 @@
         <div class="card">
           <!-- 顶部右侧徽章区 -->
           <div class="badge-box" v-if="level === item.id || item.gradeName">
-            <span class="badge">{{ item.gradeName }}</span>
-            <span v-if="level === item.id" class="lock-icon">{{ t("当前等级") }}</span>
+            <span class="badge">{{ t(item.gradeName) }}</span>
+            <span v-if="level === item.id" class="lock-icon">{{
+              t("当前等级")
+            }}</span>
           </div>
 
           <!-- 主体内容 -->
@@ -138,14 +160,18 @@
     <div class="title">{{ t("奖励获得者名单") }}</div>
     <div class="reward">
       <div class="reward-list">
-        <div v-for="(reward, index) in rewards" :key="index" class="reward-item">
+        <div
+          v-for="(reward, index) in rewards"
+          :key="index"
+          class="reward-item"
+        >
           <span class="reward-date">{{ reward.date }}</span>
           <span class="reward-message">
             {{
-            t("rewardMessage", {
-            username: reward.username,
-            amount: formatAmount(reward.amount),
-            })
+              t("rewardMessage", {
+                username: reward.username,
+                amount: formatAmount(reward.amount),
+              })
             }}
           </span>
         </div>
@@ -181,13 +207,15 @@ import {
   getUserNotifyNum,
   updateGrade,
   updateAvatar,
-  updateUserSimpleFront
+  updateUserSimpleFront,
 } from "../../api/index.js";
 import { useI18n } from "vue-i18n";
 import { notify } from "../../utils/notify.js";
 import defaultAvatar from "../../assets/img/avatar.jpg";
 const bgImage = new URL("../../assets/img/bg.png", import.meta.url).href;
 const videoUrl = new URL("../../assets/videos/INGKA.mp4", import.meta.url).href;
+import { useLangStore } from "../../store/useLangStore.js";
+const langStore = useLangStore();
 
 const promoRef = ref();
 const router = useRouter();
@@ -207,7 +235,7 @@ const triggerUpload = () => {
 };
 
 // 手动处理文件变化
-const handleFileChange = async e => {
+const handleFileChange = async (e) => {
   const file = e.target.files[0];
   if (!file) return;
 
@@ -231,25 +259,25 @@ const handleFileChange = async e => {
       globalThis.$notify({
         message: t(res.msg),
         type: "success",
-        duration: 2000
+        duration: 2000,
       });
       // 假设返回头像url为 res.data.avatarUrl，替换为你接口返回字段
       userInfo.value.headImg = res.url;
-      updateUserSimpleFront({ headImg: res.url }).then(res => {
+      updateUserSimpleFront({ headImg: res.url }).then((res) => {
         console.log(res);
       });
     } else {
       globalThis.$notify({
         message: t(res.msg),
         type: "warning",
-        duration: 2000
+        duration: 2000,
       });
     }
   } catch (error) {
     globalThis.$notify({
       message: t(res.msg),
       type: "warning",
-      duration: 2000
+      duration: 2000,
     });
     console.error(error);
   }
@@ -261,44 +289,44 @@ const handleFileChange = async e => {
 // 这里为了兼容 el-upload 的 before-upload，但真正不使用自动上传
 const handleBeforeUpload = () => false;
 
-const getImageUrl = path => {
+const getImageUrl = (path) => {
   return new URL(`../../assets/{path}`, import.meta.url).href;
 };
 
-const handleUpgrade = id => {
+const handleUpgrade = (id) => {
   uid.value = id;
   showModal.value = true;
 };
 
-getUserInfo().then(res => {
+getUserInfo().then((res) => {
   console.log(res.data);
   userInfo.value = res.data;
 });
-getMemberRecord().then(res => {
+getMemberRecord().then((res) => {
   if (res.code === 200) {
     Recordlist.value = res.data.userGrade || "";
     level.value = res.data.level;
   }
 });
-getUserNotifyNum().then(res => {
+getUserNotifyNum().then((res) => {
   notifyNum.value = res.data;
 });
 
 const handleConfirm = () => {
   let gradeId = uid.value;
-  updateGrade(uid.value).then(res => {
+  updateGrade(uid.value).then((res) => {
     console.log(res);
     if (res.code === 200) {
       globalThis.$notify({
         message: t(res.msg),
         type: "success",
-        duration: 2000
+        duration: 2000,
       });
     } else {
       globalThis.$notify({
         message: t(res.msg),
         type: "warning",
-        duration: 2000
+        duration: 2000,
       });
     }
   });
@@ -320,7 +348,7 @@ const generateUsername = () => {
     "geo",
     "mar",
     "jan",
-    "tom"
+    "tom",
   ];
   const suffix = ["b", "r", "e", "n", "y", "k", "m", "s", "d", "f"];
   const randomPrefix = prefix[Math.floor(Math.random() * prefix.length)];
@@ -340,7 +368,7 @@ const generateAmount = () => {
 };
 
 // 格式化金额显示
-const formatAmount = amount => {
+const formatAmount = (amount) => {
   return amount.replace(",", "."); // 转换为点分隔的格式
 };
 
@@ -351,7 +379,7 @@ const rewards = ref(
     .map(() => ({
       date: new Date().toISOString().split("T")[0],
       username: generateUsername(),
-      amount: generateAmount()
+      amount: generateAmount(),
     }))
 );
 
@@ -362,29 +390,29 @@ const updateRewards = () => {
     .map(() => ({
       date: new Date().toISOString().split("T")[0],
       username: generateUsername(),
-      amount: generateAmount()
+      amount: generateAmount(),
     }));
 };
 
 // 定时更新数据
 onMounted(() => {
-  promoRef.value?.show();
+  // promoRef.value?.show();
   updateRewards();
   setInterval(updateRewards, 1000); // 每5秒更新一次
 });
 
 const user = {
   name: "Linh198",
-  balance: "0.00 $"
+  balance: `0.00 ${langStore.symbol}`,
 };
 const infoBtns = computed(() => [
   { label: t("公司简介"), icon: notice },
   { label: t("基本原则"), icon: rule },
   { label: t("开发合作"), icon: cooperation },
-  { label: t("通知邮件"), icon: company }
+  { label: t("通知邮件"), icon: company },
 ]);
 
-const handleButtonClick = icon => {
+const handleButtonClick = (icon) => {
   if (icon === notice) {
     router.push({ path: "/company" });
   } else if (icon === rule) {
@@ -414,19 +442,19 @@ function withTimeout(promise, timeout = 5000) {
     promise,
     new Promise((_, reject) =>
       setTimeout(() => reject(new Error("请求超时")), timeout)
-    )
+    ),
   ]);
 }
 
 onMounted(async () => {
-  promoRef.value?.show();
+  // promoRef.value?.show();
   updateRewards();
 
   try {
     const [userRes, memberRes, notifyRes] = await Promise.all([
       withTimeout(getUserInfo(), 5000),
       withTimeout(getMemberRecord(), 5000),
-      withTimeout(getUserNotifyNum(), 5000)
+      withTimeout(getUserNotifyNum(), 5000),
     ]);
 
     // 设置用户信息

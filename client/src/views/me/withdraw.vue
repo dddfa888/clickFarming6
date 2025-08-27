@@ -7,8 +7,9 @@
           <span class="back">{{ t("取款") }}</span>
         </div>
         <span class="balance">
-          <span>{{ balance }} $</span>
-          <span>{{ t("剩余") }}($)</span>
+          <span>{{ balance }} {{ langStore.symbol }}</span>
+
+          <span>{{ t("剩余") }}({{ langStore.symbol }})</span>
         </span>
       </div>
 
@@ -50,11 +51,9 @@
         </div>
 
         <!-- 按钮增加 :disabled 和 loading 状态显示 -->
-        <button
-          class="submit-btn"
-          :disabled="loading"
-          @click="submit"
-        >{{ loading ? t("处理中...") : t("取款") }}</button>
+        <button class="submit-btn" :disabled="loading" @click="submit">
+          {{ loading ? t("处理中...") : t("取款") }}
+        </button>
       </div>
       <div v-else>
         {{ t("您尚未填写银行信息，请点击留言。") }}
@@ -65,7 +64,8 @@
             }
           "
           style="color: #20a53a"
-        >{{ t('这里') }}</span>
+          >{{ t("这里") }}</span
+        >
         {{ t("填写信息") }}
       </div>
     </div>
@@ -78,6 +78,8 @@ import { useRouter } from "vue-router";
 import { withdraw, getUserInfo } from "../../api/index.js";
 import { useI18n } from "vue-i18n";
 import { notify } from "../../utils/notify.js";
+import { useLangStore } from "../../store/useLangStore.js";
+const langStore = useLangStore();
 
 const { t } = useI18n();
 
@@ -105,7 +107,7 @@ function toback() {
 // 防抖函数
 function debounce(fn, delay) {
   let timer = null;
-  return function() {
+  return function () {
     const context = this;
     const args = arguments;
     if (timer) clearTimeout(timer);
@@ -114,17 +116,17 @@ function debounce(fn, delay) {
     }, delay);
   };
 }
-const submit = debounce(function() {
+const submit = debounce(function () {
   if (loading.value) return; // ✅ 防止重复提交
   loading.value = true;
 
   withdraw({ amount: amount.value, fundPassword: password.value })
-    .then(res => {
+    .then((res) => {
       if (res.code === 200) {
         globalThis.$notify({
           message: t("操作成功"),
           type: "success",
-          duration: 2000
+          duration: 2000,
         });
 
         amount.value = "";
@@ -134,24 +136,24 @@ const submit = debounce(function() {
           router.push("/withdrawHistory");
         }, 2000);
 
-        getUserInfo().then(res => {
+        getUserInfo().then((res) => {
           balance.value = res.data.accountBalance;
         });
       } else {
         globalThis.$notify({
           message: t(res.msg),
           type: "error",
-          duration: 2000
+          duration: 2000,
         });
         amount.value = "";
         password.value = "";
       }
     })
-    .catch(err => {
+    .catch((err) => {
       globalThis.$notify({
         message: t("网络错误，请稍后重试"),
         type: "error",
-        duration: 2000
+        duration: 2000,
       });
       console.error("withdraw error:", err);
     })
@@ -160,7 +162,7 @@ const submit = debounce(function() {
     });
 }, 2000);
 
-getUserInfo().then(res => {
+getUserInfo().then((res) => {
   bankAccountNumber.value = formatBankCard(res.data.bankAccountNumber);
   bankName.value = res.data.bankName;
   balance.value = res.data.accountBalance;

@@ -3,16 +3,22 @@
     <div class="header">
       <h2>
         {{ t("发行历史") }}
-        <span class="total-amount">{{ totalAmount }} $</span>
+        <span class="total-amount"
+          >{{ totalAmount }} {{ langStore.symbol }}</span
+        >
       </h2>
       <div class="provider">
         {{ t("数据提供者 Ingka Centres") }}
-        <span class="remaining">{{ t("剩余") }}($)</span>
+        <span class="remaining">{{ t("剩余") }}({{ langStore.symbol }})</span>
       </div>
     </div>
 
     <div class="history-list">
-      <div v-for="(item, index) in historyItems" :key="index" class="history-item">
+      <div
+        v-for="(item, index) in historyItems"
+        :key="index"
+        class="history-item"
+      >
         <div class="item-header">
           <div class="time-code">
             <span class="time">{{ t("时间") }}: {{ item.createTime }}</span>
@@ -26,7 +32,7 @@
             <div>{{ item.productName }}</div>
           </div>
           <div class="product-price">
-            {{ item.unitPrice }} $
+            {{ item.unitPrice }} {{ langStore.symbol }}
             <span class="quantity">x {{ item.number }}</span>
           </div>
         </div>
@@ -34,15 +40,19 @@
         <div class="calculation">
           <div class="calc-row">
             <span>{{ t("分配总额") }}:</span>
-            <span class="amount">{{ item.totalAmount }} $</span>
+            <span class="amount"
+              >{{ item.totalAmount }} {{ langStore.symbol }}</span
+            >
           </div>
           <div class="calc-row">
             <span>{{ t("利润") }}:</span>
-            <span class="amount">{{ item.profit }} $</span>
+            <span class="amount">{{ item.profit }} {{ langStore.symbol }}</span>
           </div>
           <div class="calc-row">
             <span>{{ t("退款金额") }}:</span>
-            <span class="amount highlight">{{ item.refundAmount }} $</span>
+            <span class="amount highlight"
+              >{{ item.refundAmount }} {{ langStore.symbol }}</span
+            >
           </div>
         </div>
 
@@ -50,10 +60,17 @@
           v-if="item.processStatus === 'Waiting'"
           class="send-button"
           @click="Sendbutton(item.id)"
-        >{{ t("发送分发") }}</button>
+        >
+          {{ t("发送分发") }}
+        </button>
       </div>
     </div>
-    <ProductModal v-if="showModal" :id="id" @close="showModal = false" @pay="handlePay" />
+    <ProductModal
+      v-if="showModal"
+      :id="id"
+      @close="showModal = false"
+      @pay="handlePay"
+    />
   </div>
 </template>
 
@@ -63,10 +80,12 @@ import ProductModal from "../../components/ProductModal.vue";
 import {
   getOrderList,
   sendDistribution,
-  getUserGradeAndBalanceAndDiscount
+  getUserGradeAndBalanceAndDiscount,
 } from "../../api/index.js";
 import { useI18n } from "vue-i18n";
 import { notify } from "../../utils/notify.js";
+import { useLangStore } from "../../store/useLangStore.js";
+const langStore = useLangStore();
 
 const { t } = useI18n();
 const totalAmount = ref(null);
@@ -74,7 +93,7 @@ const id = ref(null);
 const historyItems = ref([]);
 const showModal = ref(false);
 
-const Sendbutton = productId => {
+const Sendbutton = (productId) => {
   showModal.value = true;
   id.value = productId;
 };
@@ -82,13 +101,13 @@ const Sendbutton = productId => {
 const handlePay = () => {
   console.log("用户点击支付");
   showModal.value = false;
-  sendDistribution(id.value).then(res => {
+  sendDistribution(id.value).then((res) => {
     console.log(res);
     if (res.code === 200) {
       globalThis.$notify({
         message: t(res.msg),
         type: "success",
-        duration: 2000
+        duration: 2000,
       });
       // 刷新页面
       location.reload();
@@ -96,17 +115,17 @@ const handlePay = () => {
       globalThis.$notify({
         message: t(res.msg),
         type: "error",
-        duration: 2000
+        duration: 2000,
       });
     }
   });
 };
 
-getOrderList().then(res => {
+getOrderList().then((res) => {
   historyItems.value = res.rows;
 });
 
-getUserGradeAndBalanceAndDiscount().then(res => {
+getUserGradeAndBalanceAndDiscount().then((res) => {
   console.log(res.data);
   totalAmount.value = res.data.userBalance;
 });
@@ -115,7 +134,7 @@ onMounted(async () => {
   try {
     const [orderRes, userRes] = await Promise.all([
       getOrderList(),
-      getUserGradeAndBalanceAndDiscount()
+      getUserGradeAndBalanceAndDiscount(),
     ]);
     // 设置订单列表
     historyItems.value = orderRes.rows;

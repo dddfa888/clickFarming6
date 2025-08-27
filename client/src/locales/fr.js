@@ -44,7 +44,7 @@ export default {
   基本原则: "Règles de la fondation",
   开发合作: "Coopération au développement",
   通知邮件: "Notification",
-  rewardMessage: "Félicitations {username} reçu {amount}$ bénéfice",
+  rewardMessage: "Félicitations {username} reçu {amount}￥ bénéfice",
   发行历史: "Histoire de la distribution",
   数据提供者IngkaCentres: "Fournisseur de données Ingka Centres",
   "数据提供者 Ingka Centres": "数据提供者 Ingka Centres",
@@ -251,4 +251,8 @@ export default {
   "网络错误，请稍后重试": "Erreur de réseau, veuillez réessayer plus tard",
   "提款数额必须为整数，不能包含小数":
     "Le montant du retrait doit être un nombre entier et ne peut pas contenir de décimales",
+  普通会员: "Membre ordinaire",
+  白银会员: "Membre argent",
+  黄金会员: "Membre or",
+  钻石会员: "Membre diamant",
 };

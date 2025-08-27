@@ -2,21 +2,28 @@
   <div class="company-intro">
     <HeaderBar :title="t('充值记录')" />
     <div class="transaction-list">
-      <div v-for="(transaction, index) in transactions" :key="index" class="transaction-item">
+      <div
+        v-for="(transaction, index) in transactions"
+        :key="index"
+        class="transaction-item"
+      >
         <div class="transaction-info">
-          <div class="transaction-time">{{ t("时间") }}:{{ transaction.createTime }}</div>
-          <div class="transaction-amount" :class="{ negative: transaction.amount < 0 }">
+          <div class="transaction-time">
+            {{ t("时间") }}:{{ transaction.createTime }}
+          </div>
+          <div
+            class="transaction-amount"
+            :class="{ negative: transaction.amount < 0 }"
+          >
             {{ t("金钱数额") }}: {{ transaction.type === 0 ? "+" : "-" }}
             {{ formatAmount(transaction.amount) }}
           </div>
-          <div
-            class="transaction-balance"
-          >{{ t("剩余") }}: {{ formatAmount(transaction.accountBack) }}</div>
+          <div class="transaction-balance">
+            {{ t("剩余") }}: {{ formatAmount(transaction.accountBack) }}
+          </div>
         </div>
         <div class="transaction-status">
-          {{
-          t("transaction.success")
-          }}
+          {{ t("transaction.success") }}
         </div>
       </div>
     </div>
@@ -28,17 +35,20 @@ import { ref } from "vue";
 import HeaderBar from "../../components/HeaderBar.vue";
 import { getDepositRecord } from "../../api/index.js";
 import { useI18n } from "vue-i18n";
+import { useLangStore } from "../../store/useLangStore";
+const langStore = useLangStore();
+
 const { t } = useI18n();
 const transactions = ref([]);
 
-const formatAmount = amount => {
-  return amount.toFixed(2).replace(".", ",") + " $";
+const formatAmount = (amount) => {
+  return amount.toFixed(2).replace(".", ",") + langStore.symbol;
 };
 
 const pageNum = ref(1);
 const pageSize = ref(999);
 
-getDepositRecord(pageNum.value, pageSize.value).then(res => {
+getDepositRecord(pageNum.value, pageSize.value).then((res) => {
   console.log(res.rows);
   transactions.value = res.rows;
 });
