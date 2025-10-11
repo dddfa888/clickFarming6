@@ -2,20 +2,10 @@
   <div class="company-intro">
     <HeaderBar :title="t('奖励记录')" />
     <div class="transaction-list">
-      <div
-        v-for="(transaction, index) in transactions"
-        :key="index"
-        class="transaction-item"
-      >
-        <div class="transaction-amount">
-          {{ t("金钱数额") }}:+{{ formatAmount(transaction.amount) }}
-        </div>
-        <div class="transaction-time">
-          {{ t("描述") }}：{{ t(transaction.description) }}
-        </div>
-        <div class="transaction-balance">
-          {{ t("剩余") }}: {{ formatAmount(transaction.accountBack) }}
-        </div>
+      <div v-for="(transaction, index) in transactions" :key="index" class="transaction-item">
+        <div class="transaction-amount">{{ t("金钱数额") }}:+{{ formatAmount(transaction.amount) }}</div>
+        <div class="transaction-time">{{ t("描述") }}：{{ t(transaction.description) }}</div>
+        <div class="transaction-balance">{{ t("剩余") }}: {{ formatAmount(transaction.accountBack) }}</div>
       </div>
     </div>
   </div>
@@ -32,11 +22,11 @@ const langStore = useLangStore();
 const { t } = useI18n();
 const transactions = ref([]);
 
-const formatAmount = (amount) => {
+const formatAmount = amount => {
   return amount.toFixed(2).replace(".", ",") + ` ${langStore.symbol}`;
 };
 
-getRewardHistory().then((res) => {
+getRewardHistory().then(res => {
   console.log(res.data);
   transactions.value = res.data;
 });
@@ -55,6 +45,7 @@ getRewardHistory().then((res) => {
   flex-direction: column;
   gap: 15px;
   padding: 10px;
+  margin-bottom: 95px;
 }
 
 .transaction-item {
@@ -101,6 +92,7 @@ getRewardHistory().then((res) => {
     flex-direction: column;
     gap: 15px;
     padding: 10px;
+    margin-bottom: 95px;
   }
 
   .transaction-item {

@@ -246,8 +246,8 @@ export default {
   "网络错误，请稍后重试": "Lỗi mạng, vui lòng thử lại sau",
   "提款数额必须为整数，不能包含小数":
     "Số tiền rút phải là số nguyên, không được chứa số thập phân",
-  普通会员: "Hội viên thường",
-  白银会员: "Hội viên bạc",
-  黄金会员: "Hội viên vàng",
-  钻石会员: "Hội viên kim cương",
+  "普通会员": "Hội viên thường",
+  "白银会员": "Hội viên bạc",
+  "黄金会员": "Hội viên vàng",
+  "钻石会员": "Hội viên kim cương",
 };

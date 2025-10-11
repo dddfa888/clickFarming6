@@ -2,41 +2,36 @@
   <div class="company-intro">
     <HeaderBar :title="t('提款记录')" />
     <div class="transaction-list">
-      <div
-        v-for="(transaction, index) in transactions"
-        :key="index"
-        class="transaction-item"
-      >
+      <div v-for="(transaction, index) in transactions" :key="index" class="transaction-item">
         <div class="transaction-info">
-          <div class="transaction-time">
-            {{ $t("提款时间") }}:{{ transaction.createTime }}
-          </div>
+          <div class="transaction-time">{{ $t("提款时间") }}:{{ transaction.createTime }}</div>
           <div
             class="transaction-amount"
             :class="{ negative: transaction.amount < 0 }"
-          >
-            {{ t("金钱数额") }}:- {{ formatAmount(transaction.amount) }}
-          </div>
-          <div class="transaction-balance">
-            {{ t("剩余") }}: {{ formatAmount(transaction.accountBack) }}
-          </div>
+          >{{ t("金钱数额") }}:- {{ formatAmount(transaction.amount) }}</div>
+          <div
+            class="transaction-balance"
+          >{{ t("剩余") }}: {{ formatAmount(transaction.accountBack) }}</div>
           <div class="transaction-balance">
             {{
-              transaction.status === 2 && transaction.reasonForRejection
-                ? t("原因") + ":" + transaction.reasonForRejection
-                : ""
+            transaction.status === 2 && transaction.reasonForRejection
+            ? t("原因") + ":" + transaction.reasonForRejection
+            : ""
             }}
           </div>
         </div>
-        <div v-if="transaction.status === 0" class="transaction-status">
-          {{ t("transaction.pending") }}
-        </div>
-        <div v-if="transaction.status === 1" class="transaction-status">
-          {{ t("transaction.success") }}
-        </div>
-        <div v-if="transaction.status === 2" class="transaction-status">
-          {{ t("transaction.failed") }}
-        </div>
+        <div
+          v-if="transaction.status === 0"
+          class="transaction-status"
+        >{{ t("transaction.pending") }}</div>
+        <div
+          v-if="transaction.status === 1"
+          class="transaction-status"
+        >{{ t("transaction.success") }}</div>
+        <div
+          v-if="transaction.status === 2"
+          class="transaction-status"
+        >{{ t("transaction.failed") }}</div>
       </div>
     </div>
   </div>
@@ -57,7 +52,10 @@ const pageSize = ref(999);
 const loading = ref(false);
 const finished = ref(false); // 数据加载完毕标记
 
-const formatAmount = (amount) => {
+const formatAmount = amount => {
+  if (amount == null || isNaN(amount)) {
+    return `0.00 ${langStore.symbol}`; // 或者直接返回空字符串 ''
+  }
   return amount.toFixed(2).replace(".", ",") + ` ${langStore.symbol}`;
 };
 
@@ -80,7 +78,7 @@ const loadTransactions = async () => {
   }
 };
 
-const handleScroll = (e) => {
+const handleScroll = e => {
   const target = e.target;
   if (target.scrollTop + target.clientHeight >= target.scrollHeight - 10) {
     loadTransactions();
@@ -104,6 +102,7 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  margin-bottom: 95px;
 }
 
 .transaction-item {
@@ -176,6 +175,7 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    margin-bottom: 95px;
   }
 
   .transaction-item {

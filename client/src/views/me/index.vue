@@ -16,9 +16,7 @@
     <div class="user-level-info">
       <div class="balance-info">
         <p class="balance-label">{{ t("剩余") }}</p>
-        <p class="balance-amount">
-          {{ userInfo.accountBalance }} {{ langStore.symbol }}
-        </p>
+        <p class="balance-amount">{{ userInfo.accountBalance }} {{ langStore.symbol }}</p>
       </div>
       <div class="member-level">
         <p class="section-label">{{ t("会员级别") }}</p>
@@ -28,37 +26,17 @@
 
     <!-- 功能按钮区域 -->
     <div class="action-buttons">
-      <button class="action-btn" @click="handleAction('deposit')">
-        {{ t("提款") }}
-      </button>
-      <button class="action-btn" @click="handleAction('withdraw')">
-        {{ t("取款") }}
-      </button>
-      <button class="action-btn" @click="handleAction('withdrawHistory')">
-        {{ t("提款记录") }}
-      </button>
-      <button class="action-btn" @click="handleAction('depositHistory')">
-        {{ t("充值记录") }}
-      </button>
-      <button class="action-btn" @click="handleAction('rewardHistory')">
-        {{ t("奖励记录") }}
-      </button>
-      <button class="action-btn" @click="handleAction('orderHistory')">
-        {{ t("订单历史") }}
-      </button>
-      <button class="action-btn" @click="handleAction('groupReport')">
-        {{ t("小组报告") }}
-      </button>
-      <button class="action-btn" @click="handleAction('bankInfo')">
-        {{ t("银行信息") }}
-      </button>
-      <button class="action-btn" @click="handleAction('address')">
-        {{ t("地址") }}
-      </button>
+      <button class="action-btn" @click="handleAction('deposit')">{{ t("提款") }}</button>
+      <button class="action-btn" @click="handleAction('withdraw')">{{ t("取款") }}</button>
+      <button class="action-btn" @click="handleAction('withdrawHistory')">{{ t("提款记录") }}</button>
+      <button class="action-btn" @click="handleAction('depositHistory')">{{ t("充值记录") }}</button>
+      <button class="action-btn" @click="handleAction('rewardHistory')">{{ t("奖励记录") }}</button>
+      <button class="action-btn" @click="handleAction('orderHistory')">{{ t("订单历史") }}</button>
+      <button class="action-btn" @click="handleAction('groupReport')">{{ t("小组报告") }}</button>
+      <button class="action-btn" @click="handleAction('bankInfo')">{{ t("银行信息") }}</button>
+      <button class="action-btn" @click="handleAction('address')">{{ t("地址") }}</button>
       <button class="action-btn">{{ t("语言") }}</button>
-      <button class="language-btn" @click="toggleDropdown">
-        {{ t(selectedLanguage) }}
-      </button>
+      <button class="language-btn" @click="toggleDropdown">{{ t(selectedLanguage) }}</button>
 
       <!-- 语言选择下拉框 -->
       <ul v-if="showDropdown" class="language-dropdown">
@@ -67,9 +45,7 @@
           :key="lang"
           @click.stop="selectLanguage(lang)"
           :class="{ active: lang === selectedLanguage }"
-        >
-          {{ t(lang) }}
-        </li>
+        >{{ t(lang) }}</li>
       </ul>
     </div>
 
@@ -103,7 +79,7 @@ const langMap = {
   日本: "ja",
   法国: "fr",
   俄罗斯: "ru",
-  韩国: "ko",
+  韩国: "ko"
 };
 const reverseLangMap = Object.fromEntries(
   Object.entries(langMap).map(([k, v]) => [v, k])
@@ -117,7 +93,7 @@ const toggleDropdown = () => {
   showDropdown.value = !showDropdown.value;
 };
 
-const selectLanguage = (lang) => {
+const selectLanguage = lang => {
   selectedLanguage.value = lang;
   const langCode = langMap[lang] || "vi";
   langStore.setLocale(langCode);
@@ -125,11 +101,11 @@ const selectLanguage = (lang) => {
   showDropdown.value = false;
 };
 
-getUserInfo().then((res) => {
+getUserInfo().then(res => {
   userInfo.value = res.data;
 });
 
-const handleAction = (row) => {
+const handleAction = row => {
   if (row === "deposit") {
     window.open(
       "https://chat.ichatlink.net/widget/standalone.html?eid=6df096f4e9b05ad245f542d63ed1c8d7&language=en",
@@ -218,6 +194,7 @@ const handleLogout = () => {
 .level-name {
   margin: 0;
   color: #fff;
+  font-size: 14px;
 }
 
 .action-buttons {
@@ -370,6 +347,7 @@ const handleLogout = () => {
   .level-name {
     margin: 0;
     color: #fff;
+    font-size: 14px;
   }
 
   .action-buttons {
@@ -446,9 +424,6 @@ const handleLogout = () => {
     margin-bottom: 15px;
   }
 
-  .level-name {
-    font-size: 1.2vw;
-  }
 
   .language-dropdown {
     list-style: none;

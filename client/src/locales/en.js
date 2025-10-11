@@ -244,8 +244,8 @@ export default {
   "网络错误，请稍后重试": "Network error, please try again later",
   "提款数额必须为整数，不能包含小数":
     "The withdrawal amount must be an integer and cannot contain decimal places",
-  普通会员: "Regular Member",
-  白银会员: "Silver Member",
-  黄金会员: "Gold Member",
-  钻石会员: "Diamond Member",
+  "普通会员": "Regular Member",
+  "白银会员": "Silver Member",
+  "黄金会员": "Gold Member",
+  "钻石会员": "Diamond Member",
 };

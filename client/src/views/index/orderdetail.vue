@@ -6,9 +6,7 @@
         <div class="data-provider">{{ t("数据提供者 Ingka Centres") }}</div>
       </div>
       <div class="amount-section">
-        <div class="amount-display">
-          {{ formatCurrency(order.userBalance) }}
-        </div>
+        <div class="amount-display">{{ formatCurrency(order.userBalance) }}</div>
         <div class="amount-label">{{ t("剩余") }}({{ langStore.symbol }})</div>
       </div>
     </div>
@@ -25,7 +23,7 @@
       </div>
       <div class="detail-item">
         <div class="detail-label">{{ t("当前水平") }}</div>
-        <div class="detail-value">{{ order.userLevel }}</div>
+        <div class="detail-value">{{ t(order.userLevel) }}</div>
       </div>
       <div class="detail-item">
         <div class="detail-label">{{ t("订单已付款") }}</div>
@@ -33,15 +31,11 @@
       </div>
       <div class="detail-item">
         <div class="detail-label">{{ t("昨天折扣") }}</div>
-        <div class="detail-value">
-          {{ order.numYesterday }}{{ langStore.symbol }}
-        </div>
+        <div class="detail-value">{{ order.numYesterday }}{{ langStore.symbol }}</div>
       </div>
       <div class="detail-item">
         <div class="detail-label">{{ t("今天折扣") }}</div>
-        <div class="detail-value">
-          {{ order.numToday }}{{ langStore.symbol }}
-        </div>
+        <div class="detail-value">{{ order.numToday }}{{ langStore.symbol }}</div>
       </div>
     </div>
 
@@ -60,12 +54,7 @@
         </p>
       </div>
     </div>
-    <ProductModal
-      v-if="showModal"
-      :id="id"
-      @close="showModal = false"
-      @pay="handlePay"
-    />
+    <ProductModal v-if="showModal" :id="id" @close="showModal = false" @pay="handlePay" />
   </div>
 </template>
 
@@ -74,7 +63,7 @@ import { ref } from "vue";
 import {
   createOrder,
   getUserGradeAndBalanceAndDiscount,
-  sendDistribution,
+  sendDistribution
 } from "../../api";
 import { useI18n } from "vue-i18n";
 import ProductModal from "../../components/ProductModal.vue";
@@ -91,7 +80,7 @@ const langStore = useLangStore();
 const { locale } = storeToRefs(langStore);
 const isProcessing = ref(false);
 
-const formatCurrency = (value) => {
+const formatCurrency = value => {
   if (typeof value !== "number") return "0 " + langStore.symbol;
   return value.toLocaleString("zh-CN", { style: "currency", currency: "CNY" });
 };
@@ -103,7 +92,7 @@ const Sendbutton = debounce(() => {
     globalThis.$notify({
       message: t("地址未填写,请填写完整"),
       type: "warning",
-      duration: 4000,
+      duration: 4000
     });
     router.push({ path: "/address" });
     return;
@@ -112,7 +101,7 @@ const Sendbutton = debounce(() => {
   isProcessing.value = true; // ✅ 创建订单就上锁
 
   createOrder()
-    .then((res) => {
+    .then(res => {
       if (res.code === 200) {
         showModal.value = true;
         id.value = res.orderId;
@@ -121,17 +110,17 @@ const Sendbutton = debounce(() => {
         globalThis.$notify({
           message: t("membership_requirement", {
             level: t(res.data.level),
-            value: res.data.value,
+            value: res.data.value
           }),
           type: "error",
-          duration: 4000,
+          duration: 4000
         });
         isProcessing.value = false; // ❗失败立即解锁
       } else {
         globalThis.$notify({
           message: t(res.msg),
           type: "error",
-          duration: 4000,
+          duration: 4000
         });
         isProcessing.value = false; // ❗失败立即解锁
       }
@@ -143,7 +132,7 @@ const Sendbutton = debounce(() => {
 
 function debounce(fn, delay) {
   let timer = null;
-  return function (...args) {
+  return function(...args) {
     clearTimeout(timer);
     timer = setTimeout(() => {
       fn.apply(this, args);
@@ -157,32 +146,32 @@ const handlePay = debounce(() => {
   showModal.value = false;
 
   sendDistribution(id.value)
-    .then((res) => {
+    .then(res => {
       if (res.code === 200) {
         globalThis.$notify({
           title: "",
           message: t("正在分发"),
           type: "warning",
-          duration: 8000,
+          duration: 8000
         });
         setTimeout(() => {
           globalThis.$notify({
             message: t("订单支付成功！"),
             type: "success",
-            duration: 8000,
+            duration: 8000
           });
           isProcessing.value = false;
         }, 8000);
 
         // 更新数据
-        return getUserGradeAndBalanceAndDiscount().then((refreshRes) => {
+        return getUserGradeAndBalanceAndDiscount().then(refreshRes => {
           order.value = refreshRes.data;
         });
       } else {
         globalThis.$notify({
           message: t(res.msg),
           type: "error",
-          duration: 6000,
+          duration: 6000
         });
         isProcessing.value = false;
       }
@@ -191,13 +180,13 @@ const handlePay = debounce(() => {
       globalThis.$notify({
         message: t("支付请求失败"),
         type: "error",
-        duration: 4000,
+        duration: 4000
       });
       isProcessing.value = false;
     });
 }, 2000);
 
-getUserGradeAndBalanceAndDiscount().then((res) => {
+getUserGradeAndBalanceAndDiscount().then(res => {
   console.log(res.data);
   order.value = res.data;
 });

@@ -9,12 +9,12 @@ import { showToast } from "vant";
 
 let isTokenExpired = false;
 // const router = useRouter();
-const baseURL = "http://192.168.1.203:8089/";
+const baseURL = "https://cf6api.gzgov.cc/";
 const request = axios.create({
   baseURL:
     import.meta.env.MODE === "development"
       ? "/api"
-      : "https://cf6api.dadwqwqee.shop/",
+      : "https://cf6api.gzgov.cc/",
   // baseURL:baseURL,
   timeout: 10000,
 });
